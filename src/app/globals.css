@@ -2,7 +2,30 @@
 
 @theme  {
   --color-background: #171717;
+  --color-background2: #121212;
+  --color-background3: #0f0f13;
+  --color-border: #FFFFFF0D;
   --color-custom-orange: #ff9776;
    --font-sora: "font", sora;
 }
 
+.directional-overlay {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.directional-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: white;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+  z-index: 0; /* Keep behind content */
+  pointer-events: none;
+}
+
+.directional-overlay:hover::before {
+  transform: translateX(0%);
+}
