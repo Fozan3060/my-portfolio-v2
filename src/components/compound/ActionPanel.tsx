@@ -9,7 +9,7 @@ interface ActionPanelType {
 const ActionPanel:React.FC<ActionPanelType> = ({ setOpenMobileNavbar }) => {
   return (
     <div className="flex gap-3 items-center">
-      <DirectionalButton />
+      <DirectionalButton label="Let's Talk" />
       <MobileNavbarBtn setOpenMobileNavbar={setOpenMobileNavbar}/>
     </div>
   );

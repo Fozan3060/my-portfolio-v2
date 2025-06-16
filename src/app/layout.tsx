@@ -19,10 +19,8 @@ export default function RootLayout ({
   return (
     <html lang='en'>
       <body className={`${sora.variable} antialiased bg-background font-sora`}>
-          <Header />
-        <Wrapper>
-          {children}
-        </Wrapper>
+        <Header />
+       {children}
       </body>
     </html>
   )

@@ -14,7 +14,7 @@ const Logo: React.FC<LogoType> = ({classname}) => {
         width={120}
         height={60}
         className={classname}
-         style={{ backgroundColor: 'transparent' }}
+         
       />
     </div>
   );
