@@ -6,7 +6,7 @@ import Image from 'next/image'
 const LeftBanner = () => {
   return (
  
-      <VerticalText className='hidden md:flex gap-10 origin-bottom-left items-center tracking-wider left-5 absolute 2xl:left-0 2xl:top-0 justify-center'>
+      <VerticalText className='hidden md:flex gap-10 origin-bottom-left items-center tracking-wider left-5 absolute 2xl:left-0 top-16 lg:top-24 2xl:top-0 justify-center'>
         <MdDialpad size={29} color='white' className='transform rotate-270' />
         <h3 className='hover:text-custom-orange mr-5 text-white cursor-pointer transition-colors duration-300'>
           03322440974

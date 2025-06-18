@@ -17,8 +17,7 @@ const MiddleBanner = () => {
           <br /> <span>Fozan</span>
         </h1>
         <p className='text-white text-lg 2xl:text-xl font-medium tracking-wider mt-4 max-w-2xl'>
-          I'am award-winning product designer specialized in UX/UI, currently
-          living in Bronx, NY.
+          I'am Full-Stack developer with 3+ years of experience in building scalable web applications. I specialize in creating high-performance, user-friendly websites. 
         </p>
         <div className='flex-col flex sm:flex-row gap-5 mt-10'>
           <HireMeBtn />

@@ -11,7 +11,7 @@ const Header = () => {
     <header className=' fixed w-full z-50'>
       <Wrapper>
         <div className='flex justify-between items-center uppercase py-5'>
-          <Logo classname='h-16 w-20' />
+          <Logo classname='h-16 w-20' src='/assets/logo.png' />
           <NavigationLinks className='xl:flex hidden'/>
           <ActionPanel setOpenMobileNavbar={setOpenMobileNavbar} />
         </div>
