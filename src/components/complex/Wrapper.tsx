@@ -5,7 +5,7 @@ interface WrapperType {
 }
 
 const Wrapper: React.FC<WrapperType> = ({ children }) => {
-  return <div className='px-5 sm:px-20'>{children}</div>
+  return <div className='mx-5 sm:mx-14 lg:mx-20 2xl:relative'>{children}</div>
 }
 
 export default Wrapper

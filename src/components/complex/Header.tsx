@@ -8,7 +8,7 @@ import MobileNavBar from './MobileNavBar'
 const Header = () => {
   const [openMobileNavbar, setOpenMobileNavbar] = useState<boolean>(false)
   return (
-    <header className='bg-background2 fixed w-full '>
+    <header className=' fixed w-full z-50'>
       <Wrapper>
         <div className='flex justify-between items-center uppercase py-5'>
           <Logo classname='h-16 w-20' />
