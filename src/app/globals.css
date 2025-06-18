@@ -1,15 +1,18 @@
 @import "tailwindcss";
 
-@theme  {
+@theme {
   --color-background: #171717;
   --color-background2: #121212;
   --color-background3: #0f0f13;
   --color-border: #FFFFFF0D;
   --color-custom-orange: #ff9776;
   --color-text1: rgb(153, 153, 153);
-   --font-sora: "font", sora;
-   --breakpoint-small_phone: 350px;
-   --breakpoint-medium_phone: 400px;
+  --color-text2: #999999;
+  --color-text3: #dddddd;
+  --font-sora: "font", sora;
+  --breakpoint-small_phone: 350px;
+  --breakpoint-medium_phone: 400px;
+  --breakpoint-semi_lg:1150px;
 }
 
 .directional-overlay {
@@ -32,10 +35,10 @@
 .directional-overlay:hover::before {
   transform: translateX(0%);
 }
+
 .herosection {
   position: relative;
   width: 100%;
-  
   overflow: hidden;
-  background: url('/assets/hero.png') ;
+  background: url('/assets/hero.png');
 }

@@ -3,13 +3,14 @@ import Image from 'next/image';
 
 interface LogoType {
   classname: string;
+  src: string;
 }
-
-const Logo: React.FC<LogoType> = ({classname}) => {
+// /assets/logo.png
+const Logo: React.FC<LogoType> = ({classname,src}) => {
   return (
     <div className="logo">
       <Image
-        src="/assets/logo.png"
+        src={src}
         alt="Logo"
         width={120}
         height={60}
