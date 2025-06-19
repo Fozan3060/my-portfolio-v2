@@ -13,6 +13,9 @@
   --breakpoint-small_phone: 350px;
   --breakpoint-medium_phone: 400px;
   --breakpoint-semi_lg:1150px;
+  --breakpoint-semi_md:990px;
+  --gradient-card-bg: linear-gradient(145deg, #1e2024, #23272b);
+  --shadow-neumorphic: 10px 10px 19px #1c1e22, -10px -10px 19px #262a2e;
 }
 
 .directional-overlay {
@@ -41,4 +44,23 @@
   width: 100%;
   overflow: hidden;
   background: url('/assets/hero.png');
+}
+
+.portfolioCard{
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s ease-out forwards;
 }

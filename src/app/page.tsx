@@ -1,5 +1,6 @@
 import AboutMe from "@/components/complex/AboutMe";
 import Herosection from "@/components/complex/Herosection";
+import Portfolio from "@/components/complex/Portfolio";
 import Services from "@/components/complex/Services";
 import LeftBanner from "@/components/compound/LeftBanner";
 import MiddleBanner from "@/components/compound/MiddleBanner";
@@ -14,6 +15,7 @@ export default function Home() {
     <AboutMe/>
     <Personalnfo/>
     <Services/>
+    <Portfolio/>
   </main>
   );
 }

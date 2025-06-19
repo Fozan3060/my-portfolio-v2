@@ -5,9 +5,10 @@ import Button from '@/components/ui/Button'
 import { div } from 'framer-motion/client'
 
 type DirectionalButtonType = {
-  label: string
+  label?: string
+  children?: React.ReactNode
 }
-const DirectionalButton: React.FC<DirectionalButtonType> = ({ label }) => {
+const DirectionalButton: React.FC<DirectionalButtonType> = ({ label , children}) => {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [transform, setTransform] = useState('')
 
@@ -46,7 +47,10 @@ const DirectionalButton: React.FC<DirectionalButtonType> = ({ label }) => {
       <Button
         label={label}
         className=' relative text-nowrap top-0 font-semibold text-background hover:text-background h-14 z-10 bg-transparent cursor-pointer'
-      />
+
+      >
+        {children}
+      </Button>
     </div>
   )
 }
