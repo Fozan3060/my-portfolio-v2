@@ -64,3 +64,36 @@
 .animate-scaleIn {
   animation: scaleIn 0.3s ease-out forwards;
 }
+.swiper-pagination-bullet {
+  border: 2px solid white !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  background: transparent !important;
+  position: relative !important;
+  opacity: 1 !important;
+}
+.swiper-pagination-bullet::after {
+  content: "";
+  height: 10px;
+  width: 10px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: white;
+}
+
+.swiper-pagination{
+ bottom: 0rem !important;
+}
+.swiper-wrapper{
+  margin-bottom: 5rem !important;
+}
+.swiper-pagination-bullet-active::after{
+  background: #ff9776 !important;
+}
+.swiper-pagination-bullet-active{
+  border: 2px solid #ff9776 !important;
+}
