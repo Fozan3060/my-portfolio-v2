@@ -70,7 +70,7 @@ const MobileNavBar: React.FC<MobileNavBarProps> = ({ open, setOpen }) => {
               className='fixed top-0 left-0 h-full w-80 bg-background3 z-50 shadow-lg'
             >
              <div className='flex justify-between items-center px-4 pt-6'>
-              <Logo classname='h-16 w-20'/>
+              <Logo classname='h-16 w-20' src='/assets/logo.png' />
              <Button
                 className='cursor-pointer text-3xl  text-white'
                 onClick={() => setOpen(false)}
