@@ -4,7 +4,6 @@ import SectionHeading from '../ui/SectionHeading'
 import Wrapper from './Wrapper'
 import SectionWrapper from '../ui/SectionWrapper'
 import Logo from '../ui/Logo'
-import { div } from 'framer-motion/m'
 
 const servicesData = [
   {

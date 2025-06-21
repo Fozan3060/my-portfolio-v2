@@ -1,5 +1,4 @@
 import React from 'react'
-import { MdDialpad } from 'react-icons/md'
 import VerticalText from './VerticalText'
 import Image from 'next/image'
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa'

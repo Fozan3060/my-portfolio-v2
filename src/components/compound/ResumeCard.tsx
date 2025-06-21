@@ -5,7 +5,6 @@ interface ResumeCardType {
   PositionName: string
   date: string
   points: string[]
-  index: number
 }
 
 export const ResumeCard: React.FC<ResumeCardType> = ({
@@ -13,7 +12,6 @@ export const ResumeCard: React.FC<ResumeCardType> = ({
   PositionName,
   date,
   points,
-  index
 }) => {
   return (
     <div data-testid='resume-card' className='mt-9'>

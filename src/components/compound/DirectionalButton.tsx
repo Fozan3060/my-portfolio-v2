@@ -2,7 +2,6 @@
 
 import React, { useRef, useState } from 'react'
 import Button from '@/components/ui/Button'
-import { div } from 'framer-motion/client'
 
 type DirectionalButtonType = {
   label?: string

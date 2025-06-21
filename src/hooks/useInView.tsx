@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState, MutableRefObject } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 function useInView<T extends HTMLElement>(threshold = 0.1) {
   const ref = useRef<T | null>(null)

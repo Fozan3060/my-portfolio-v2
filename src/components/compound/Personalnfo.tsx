@@ -24,7 +24,7 @@ const Personalnfo = () => {
                 Personal Info
               </h2>
               <p className='text-text1 mb-10'>
-                I'm a Full-Stack JavaScript developer with 3+ years of
+                I&apos;m a Full-Stack JavaScript developer with 3+ years of
                 experience building fast, scalable web applications using React,
                 Next.js, Node.js, and AWS. I focus on delivering smooth user
                 experiences, clean code, and efficient CI/CD workflows.

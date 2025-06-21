@@ -1,11 +1,6 @@
 import React from 'react'
-import Button from '../ui/Button'
-import { FaGreaterThan } from 'react-icons/fa'
-import { PiGreaterThan, PiGreaterThanBold } from 'react-icons/pi'
 import HireMeBtn from './HireMeBtn'
 import DirectionalButton from './DirectionalButton'
-import { div } from 'framer-motion/client'
-import Image from 'next/image'
 import BannerImage from './BannerImage'
 
 const MiddleBanner = () => {
@@ -17,14 +12,17 @@ const MiddleBanner = () => {
           <br /> <span>Fozan</span>
         </h1>
         <p className='text-white text-lg 2xl:text-xl font-medium tracking-wider mt-4 max-w-2xl'>
-          I'am Full-Stack developer with 3+ years of experience in building scalable web applications. I specialize in creating high-performance, user-friendly websites. 
+          {
+            "I'm a Full-Stack developer with 3+ years of experience in building scalable web applications. I specialize in creating high-performance, user-friendly websites."
+          }
         </p>
+
         <div className='flex-col flex sm:flex-row gap-5 mt-10'>
           <HireMeBtn />
           <DirectionalButton label='Download CV' />
         </div>
       </div>
-      <BannerImage/>
+      <BannerImage />
     </div>
   )
 }

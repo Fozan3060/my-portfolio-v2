@@ -3,9 +3,6 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { MdArrowOutward } from 'react-icons/md'
-import Modal from '../compound/Modal'
-import DirectionalButton from '../compound/DirectionalButton'
-import { FaArrowUpRightFromSquare } from 'react-icons/fa6'
 import PortfolioModal from '../compound/PortfolioModal'
 
 const skills = ['React', 'TypeScript', 'Tailwind CSS', 'Jest']

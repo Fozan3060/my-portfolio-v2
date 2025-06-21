@@ -4,10 +4,9 @@ import React from 'react'
 import Button from '../ui/Button'
 import { FaGreaterThan } from "react-icons/fa6";
 
-type Props = {}
+const HireMeBtn = () => {
+  const [hover, setHover] = React.useState<boolean>(false)
 
-const HireMeBtn = (props: Props) => {
-  const [hover, setHover] = React.useState<Boolean>(false)
   return (
     <div onMouseEnter={() => setHover(true)} onMouseLeave={()=>setHover(false)} className='cursor-pointer h-14'>
       <div
