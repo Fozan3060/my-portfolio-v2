@@ -57,6 +57,7 @@ const Resume: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const currentRef = sectionRef.current
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setIsVisible(true)
@@ -64,8 +65,11 @@ const Resume: React.FC = () => {
       { threshold: 0.2 }
     )
 
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => sectionRef.current && observer.unobserve(sectionRef.current)
+    if (currentRef) observer.observe(currentRef)
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef)
+    }
   }, [])
 
   return (
@@ -99,7 +103,6 @@ const Resume: React.FC = () => {
                   PositionName={item.PositionName}
                   date={item.date}
                   points={item.points}
-                  index={index}
                 />
               ))}
             </VerticalTimeline>
@@ -114,7 +117,6 @@ const Resume: React.FC = () => {
                   PositionName={item.PositionName}
                   date={item.date}
                   points={item.points}
-                  index={index}
                 />
               ))}
             </VerticalTimeline>

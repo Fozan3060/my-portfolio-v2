@@ -35,8 +35,11 @@ const PortfolioModal: React.FC<PortfolioModalType> = ({
               items and clothing.
             </p>
             <div className='flex mb-10 semi_md:mb-0 semi_md:text-sm lg:text-base items-center flex-wrap gap-2 '>
-              {skills.map((skill, index) => (
-                <span className='bg-background  py-2 px-6 cursor-pointer hover:bg-custom-orange transition-colors duration-300 hover:text-background font-medium text-center text-nowrap text-white rounded-3xl'>
+              {skills.map(skill => (
+                <span
+                  key={skill}
+                  className='bg-background  py-2 px-6 cursor-pointer hover:bg-custom-orange transition-colors duration-300 hover:text-background font-medium text-center text-nowrap text-white rounded-3xl'
+                >
                   {skill}
                 </span>
               ))}
