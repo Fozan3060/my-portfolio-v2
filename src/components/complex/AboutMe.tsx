@@ -10,7 +10,7 @@ import StatItem from '../compound/StatItem'
 
 const AboutMe = () => {
   return (
-    <Wrapper>
+    <Wrapper sectionId='about'>
       <SectionWrapper>
         <Logo src="/assets/Logo2.png" classname="h-16 w-20 m-auto" />
         <SectionHeading heading="About Me" />

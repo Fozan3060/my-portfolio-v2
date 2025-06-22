@@ -44,9 +44,9 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
               label='✕'
               onClick={onClose}
               className='bg-gradient-to-br from-[#1A1A1A] to-[#212121] 
-    fixed top-10 right-6 sm:absolute sm:top-4 sm:right-4 text-lg cursor-pointer text-white shadow-[4px_4px_10px_#0A0A0A,-4px_-4px_10px_#2C2C2C]
-    w-12 aspect-square flex items-center justify-center 
-    rounded-full'
+                absolute top-4 right-4 text-lg cursor-pointer text-white shadow-[4px_4px_10px_#0A0A0A,-4px_-4px_10px_#2C2C2C]
+                w-12 aspect-square flex items-center justify-center 
+                rounded-full'
             />
 
             {children}

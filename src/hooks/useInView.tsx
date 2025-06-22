@@ -1,20 +1,32 @@
-// useInView.js (or .tsx)
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-function useInView<T extends HTMLElement>(threshold = 0.1) {
+function useInView<T extends HTMLElement>(
+  threshold = 0.1,
+  once = true
+) {
   const ref = useRef<T | null>(null);
   const [isInView, setIsInView] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // --- MODIFICATION HERE ---
-        // Set isInView based on whether the element is currently intersecting.
-        setIsInView(entry.isIntersecting);
-        // Do NOT disconnect the observer here if you want it to re-trigger.
-        // The observer should remain active to detect changes.
-        // --- END MODIFICATION ---
+        if (once && hasAnimated) {
+          return;
+        }
+
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          if (once) {
+            setHasAnimated(true);
+            observer.disconnect();
+          }
+        } else {
+          if (!once && isInView) {
+            setIsInView(false);
+          }
+        }
       },
       { threshold }
     );
@@ -23,14 +35,13 @@ function useInView<T extends HTMLElement>(threshold = 0.1) {
       observer.observe(ref.current);
     }
 
-    // Clean up function: Disconnect when the component unmounts
     return () => {
-      if (ref.current) { // Check if ref.current exists before disconnecting
-        observer.unobserve(ref.current); // Use unobserve for specific element
+      if (ref.current) {
+        observer.unobserve(ref.current);
       }
-      observer.disconnect(); // Disconnect the observer completely
+      observer.disconnect();
     };
-  }, [threshold]); // Depend on threshold
+  }, [threshold, once, hasAnimated, isInView]);
 
   return { ref, isInView };
 }

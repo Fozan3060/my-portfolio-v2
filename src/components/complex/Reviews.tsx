@@ -8,7 +8,7 @@ import ReviewsSlider from '../compound/ReviewsSlider'
 const Reviews = () => {
   return (
     <div className='bg-background2'>
-      <Wrapper>
+      <Wrapper sectionId='review'>
         <SectionWrapper>
           <Logo src="/assets/Logo2.png" classname="h-16 w-20 m-auto" />
           <SectionHeading heading='Reviews' />

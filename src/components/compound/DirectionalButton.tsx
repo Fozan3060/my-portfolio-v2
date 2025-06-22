@@ -1,14 +1,23 @@
 'use client'
 
 import React, { useRef, useState } from 'react'
-import Button from '@/components/ui/Button'
 
 type DirectionalButtonType = {
   label?: string
   children?: React.ReactNode
+  type?: 'button' | 'submit' | 'reset'
+  onClick?: () => void
+  className?: string
 }
-const DirectionalButton: React.FC<DirectionalButtonType> = ({ label , children}) => {
-  const wrapperRef = useRef<HTMLDivElement>(null)
+
+const DirectionalButton: React.FC<DirectionalButtonType> = ({
+  label,
+  children,
+  type = 'button',
+  onClick,
+  className
+}) => {
+  const wrapperRef = useRef<HTMLButtonElement>(null)
   const [transform, setTransform] = useState('')
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -36,21 +45,19 @@ const DirectionalButton: React.FC<DirectionalButtonType> = ({ label , children})
   }
 
   return (
-    <div
+    <button
       ref={wrapperRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className='  transition-transform duration-500 relative z-0 directional-overlay bg-custom-orange cursor-pointer text-lg px-7 sm:px-14 rounded-xl'
+      onClick={onClick}
+      type={type}
+      className={`transition-transform duration-500 relative z-0 directional-overlay bg-custom-orange cursor-pointer text-lg px-7 sm:px-14 rounded-xl flex items-center justify-center ${className}`}
       style={{ transform }}
     >
-      <Button
-        label={label}
-        className=' relative text-nowrap top-0 font-semibold text-background hover:text-background h-14 z-10 bg-transparent cursor-pointer'
-
-      >
-        {children}
-      </Button>
-    </div>
+      <span className='relative text-nowrap font-semibold text-background hover:text-background h-14 z-10 bg-transparent flex items-center justify-center'>
+        {label || children}
+      </span>
+    </button>
   )
 }
 
