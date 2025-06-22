@@ -9,7 +9,7 @@ const Portfolio = () => {
   return (
     <Wrapper>
       <SectionWrapper>
-        <Logo src='/assets/logo2.png' classname='h-16 w-20 m-auto' />
+        <Logo src="/assets/Logo2.png" classname="h-16 w-20 m-auto" />
         <SectionHeading heading='Portfolio' />
         <PortfolioCard />
       </SectionWrapper>

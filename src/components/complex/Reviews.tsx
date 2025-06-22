@@ -10,7 +10,7 @@ const Reviews = () => {
     <div className='bg-background2'>
       <Wrapper>
         <SectionWrapper>
-          <Logo src='/assets/logo2.png' classname='h-16 w-20 m-auto' />
+          <Logo src="/assets/Logo2.png" classname="h-16 w-20 m-auto" />
           <SectionHeading heading='Reviews' />
           <div>
             <h2 className='text-center text-6xl text-white font-bold mb-5'>Clients Feedback</h2>

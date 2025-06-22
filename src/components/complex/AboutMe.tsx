@@ -12,7 +12,7 @@ const AboutMe = () => {
   return (
     <Wrapper>
       <SectionWrapper>
-        <Logo src="/assets/logo2.png" classname="h-16 w-20 m-auto" />
+        <Logo src="/assets/Logo2.png" classname="h-16 w-20 m-auto" />
         <SectionHeading heading="About Me" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2">

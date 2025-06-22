@@ -92,7 +92,7 @@ const Services: React.FC = () => {
     <div className='bg-background2'>
       <Wrapper>
         <SectionWrapper>
-          <Logo src='/assets/logo2.png' classname='h-16 w-20 m-auto' />
+          <Logo src="/assets/Logo2.png" classname="h-16 w-20 m-auto" />
           <SectionHeading heading='Services' />
 
           <div className='grid overflow-hidden grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 px-[15px] sm:px-0   mx-auto items-center mt-20 '>
