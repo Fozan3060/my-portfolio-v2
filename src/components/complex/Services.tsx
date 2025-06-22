@@ -90,7 +90,7 @@ const servicesData = [
 const Services: React.FC = () => {
   return (
     <div className='bg-background2'>
-      <Wrapper>
+      <Wrapper sectionId='services'>
         <SectionWrapper>
           <Logo src="/assets/Logo2.png" classname="h-16 w-20 m-auto" />
           <SectionHeading heading='Services' />

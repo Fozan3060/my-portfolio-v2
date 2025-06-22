@@ -7,7 +7,7 @@ import PortfolioCard from './PortfolioCard'
 
 const Portfolio = () => {
   return (
-    <Wrapper>
+    <Wrapper sectionId="portfolio">
       <SectionWrapper>
         <Logo src="/assets/Logo2.png" classname="h-16 w-20 m-auto" />
         <SectionHeading heading='Portfolio' />

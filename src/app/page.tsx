@@ -1,4 +1,5 @@
 import AboutMe from '@/components/complex/AboutMe'
+import ContactUs from '@/components/complex/ContactUs'
 import Herosection from '@/components/complex/Herosection'
 import Portfolio from '@/components/complex/Portfolio'
 import Resume from '@/components/complex/Resume'
@@ -18,6 +19,7 @@ export default function Home () {
       <Reviews />
       <Resume/>
       <Skills/>
+      <ContactUs/>
     </main>
   )
 }
