@@ -6,7 +6,7 @@ import BannerImage from './BannerImage'
 const MiddleBanner = () => {
   return (
     <div className='flex items-center justify-center'>
-      <div className='flex-col border'>
+      <div className='flex-col'>
         <h1 className='text-7xl sm:text-8xl md:text-6xl  lg:text-8xl xl:text-9xl 2xl:text-[9rem] font-bold tracking-wider text-white'>
           <span>Hay’ i m</span>
           <br /> <span>Fozan</span>

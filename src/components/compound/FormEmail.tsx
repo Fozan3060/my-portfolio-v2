@@ -65,7 +65,7 @@ const FormEmail: React.FC = () => {
         alert('Thank you. I will get back to you soon!')
         setForm({ name: '', email: '', message: '' })
       })
-      .catch((error: any) => {
+      .catch((error: unknown) => {
         setLoading(false)
         console.error('Email sending error:', error)
         alert('Oops! Something went wrong. Please try again.')

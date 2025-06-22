@@ -7,7 +7,7 @@ import SectionHeading from '../ui/SectionHeading';
 import Logo from '../ui/Logo';
 import SkillCard from '../compound/SkillCard';
 import { SkillsData } from '../../../Data';
-import useInView from '../../hooks/useInView';
+
 
 const Skills = () => {
   return (
