@@ -44,7 +44,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: url('/assets/hero.png');
+  background: url('/assets/hero.webp');
 }
 
 .portfolioCard {
