@@ -4,6 +4,7 @@ import Portfolio from '@/components/complex/Portfolio'
 import Resume from '@/components/complex/Resume'
 import Reviews from '@/components/complex/Reviews'
 import Services from '@/components/complex/Services'
+import Skills from '@/components/complex/Skills'
 import Personalnfo from '@/components/compound/Personalnfo'
 
 export default function Home () {
@@ -16,6 +17,7 @@ export default function Home () {
       <Portfolio />
       <Reviews />
       <Resume/>
+      <Skills/>
     </main>
   )
 }

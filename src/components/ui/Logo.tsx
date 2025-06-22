@@ -5,7 +5,6 @@ interface LogoType {
   classname: string;
   src: string;
 }
-// /assets/logo.png
 const Logo: React.FC<LogoType> = ({classname,src}) => {
   return (
     <div className="logo">

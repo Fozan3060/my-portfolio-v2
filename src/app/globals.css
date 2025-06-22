@@ -128,7 +128,7 @@ visibility: hidden !important;
 
 .vertical-timeline-element-content {
   margin-left: 3rem !important;
-   width: 100% !important;
+   width: fit-content !important;
 }
 
 .vertical-timeline--two-columns .vertical-timeline-element-content .vertical-timeline-element-date {

@@ -75,7 +75,7 @@ const Resume: React.FC = () => {
   return (
     <Wrapper>
       <SectionWrapper>
-        <Logo src='/assets/logo2.png' classname='h-16 w-20 m-auto' />
+        <Logo src='/assets/Logo2.png' classname='h-16 w-20 m-auto' />
         <SectionHeading heading='Resume' />
         <div className='sm:px-0 xl:w-4/5 mx-auto'>
           <div
