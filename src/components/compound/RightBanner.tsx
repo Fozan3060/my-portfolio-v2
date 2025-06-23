@@ -1,9 +1,7 @@
 import React from 'react'
 import VerticalText from './VerticalText'
 import Image from 'next/image'
-import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
-
-const sociallinks = [FaLinkedinIn, FaGithub]
+import SocialLinks from '../ui/SocialLinks'
 
 const RightBanner = () => {
   return (
@@ -17,15 +15,7 @@ const RightBanner = () => {
         className='transform absolute rotate-270 -right-40'
       />
       <div className='flex gap-4 absolute -right-96'>
-       {sociallinks.map((Icon, index) => (
-            <div
-              key={index}
-              className='rounded-full text-white bg-black hover:bg-custom-orange p-3 transition-colors duration-300 cursor-pointer'
-            >
-              <Icon size={20} />
-            </div>
-          ))}
-        
+       <SocialLinks/>
       </div>
     </VerticalText>
   )

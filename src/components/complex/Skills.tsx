@@ -17,7 +17,7 @@ const Skills = () => {
           <Logo src='/assets/Logo2.png' classname='h-16 w-20 m-auto' />
           <SectionHeading heading='Skills' />
           <div className='flex justify-center'>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-36 gap-y-12'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-36 gap-y-12'>
               {SkillsData.map((item, index) => {
                 const itemsPerRow = 4;
                 const rowIndex = Math.floor(index / itemsPerRow);
