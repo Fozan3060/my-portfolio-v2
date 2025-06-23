@@ -16,9 +16,9 @@ const LeftBanner = () => {
   transition-transform duration-700 ease-out ${isInView ? 'translate-x-0 opacity-100' : '-translate-x-24 opacity-0'}`}
     >
       <MdDialpad size={29} color='white' className='transform rotate-270' />
-      <h3 className='hover:text-custom-orange mr-5 text-white cursor-pointer transition-colors duration-300'>
+      <a href="tel:+923322440974"  className='hover:text-custom-orange mr-5 text-white cursor-pointer transition-colors duration-300'>
         03322440974
-      </h3>
+      </a >
       <h3 className='text-text1 font-medium  uppercase'>Scroll</h3>
       <Image
         src='/assets/scrolldown.png'

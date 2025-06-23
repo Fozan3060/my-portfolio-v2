@@ -6,7 +6,12 @@ import { FaGreaterThan } from "react-icons/fa6";
 
 const HireMeBtn = () => {
   const [hover, setHover] = React.useState<boolean>(false)
-
+const handleClick = () => {
+    const section = document.getElementById('contact')
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
   return (
     <div onMouseEnter={() => setHover(true)} onMouseLeave={()=>setHover(false)} className='cursor-pointer h-14'>
       <div
@@ -14,7 +19,7 @@ const HireMeBtn = () => {
           hover ? 'w-44' : 'w-10'
         }`}
       ></div>
-      <Button className=' w-44 justify-center h-14 capitalize font-semibold flex gap-2 items-center'>
+      <Button onClick={handleClick} className=' w-44 justify-center h-14 capitalize font-semibold flex gap-2 items-center'>
         <span className={` duration-300 ${hover ? '-translate-x-2' : '-translate-x-4'}`}>
           <FaGreaterThan size={22} />
         </span>
