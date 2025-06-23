@@ -19,8 +19,9 @@ const PortfolioModal: React.FC<PortfolioModalType> = ({
       <div className='flex sm:w-[26rem]  lg:w-full m-auto semi_md:flex-row flex-col gap-16'>
         <Image
           src={'/assets/MerchantraFinal.webp'}
-          width={400}
-          height={400}
+          width={800}
+          height={800}
+          priority
           className='lg:w-[28rem]  xl:w-[30rem] h-auto rounded-lg'
           alt='ProjectImage'
         />

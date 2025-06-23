@@ -21,22 +21,23 @@ const sidebarVariants = {
     x: 0,
     transition: {
       type: 'spring',
-      stiffness: 100,
-      damping: 30,
-      mass: 0.8,
-      velocity: 0.5
+      stiffness: 130,  
+      damping: 20,      
+      mass: 0.9,        
+      velocity: 1.5    
     }
   },
   exit: {
     x: '-100%',
-    transition: { 
+    transition: {
       type: 'spring',
-      stiffness: 100,
-      damping: 30,
-      mass: 0.8
+      stiffness: 130,
+      damping: 20,
+      mass: 0.9
     }
   }
 }
+
 
 
 const MobileNavBar: React.FC<MobileNavBarProps> = ({ open, setOpen }) => {

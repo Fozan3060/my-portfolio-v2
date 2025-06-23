@@ -2,7 +2,6 @@
 
 import React from 'react'
 import Wrapper from './Wrapper'
-import SectionWrapper from '../ui/SectionWrapper'
 import NavigationLinks from '../compound/NavigationLinks'
 import SocialLinks from '../ui/SocialLinks'
 

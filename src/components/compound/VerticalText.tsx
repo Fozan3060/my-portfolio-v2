@@ -1,17 +1,22 @@
-import React from 'react'
+'use client';
+
+import React from 'react';
 
 type VerticalTextTypes = {
-    children: React.ReactNode;
-    className?: string;
-}
+  children: React.ReactNode;
+  className?: string;
+};
 
-const VerticalText:React.FC<VerticalTextTypes> = ({children,className}) => {
-  return (
-    
-     <div className={`transform  h-fit rotate-90 w-fit  ${className}`}>
+const VerticalText = React.forwardRef<HTMLDivElement, VerticalTextTypes>(
+  ({ children, className }, ref) => {
+    return (
+      <div ref={ref} className={`transform h-fit rotate-90 w-fit ${className}`}>
         {children}
       </div>
-  )
-}
+    );
+  }
+);
 
-export default VerticalText
+VerticalText.displayName = 'VerticalText';
+
+export default VerticalText;
