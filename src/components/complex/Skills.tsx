@@ -12,7 +12,7 @@ import { SkillsData } from '../../../Data';
 const Skills = () => {
   return (
     <div className='bg-background2'>
-      <Wrapper>
+      <Wrapper sectionId='Skills'>
         <SectionWrapper>
           <Logo src='/assets/Logo2.png' classname='h-16 w-20 m-auto' />
           <SectionHeading heading='Skills' />

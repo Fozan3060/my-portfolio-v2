@@ -4,17 +4,22 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { MdArrowOutward } from 'react-icons/md'
 import PortfolioModal from '../compound/PortfolioModal'
+import useInView from '@/hooks/useInView'
 
 const skills = ['React', 'TypeScript', 'Tailwind CSS', 'Jest']
 
 const PortfolioCard = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const { ref, isInView } = useInView<HTMLDivElement>(0.2, true)
 
   return (
     <>
       <div
-        className='sm:w-96 rounded-2xl p-7 bg-gradient-to-br from-[#1A1A1A] to-[#212121]
-        shadow-[10px_10px_15px_#0A0A0A,-10px_-10px_15px_#2C2C2C]'
+        ref={ref}
+        className={`sm:w-96 rounded-2xl p-7 bg-gradient-to-br from-[#1A1A1A] to-[#212121]
+        shadow-[10px_10px_15px_#0A0A0A,-10px_-10px_15px_#2C2C2C] 
+        transition-all duration-700 ease-out 
+        ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       >
         <div
           className='w-full h-64 rounded-lg overflow-hidden mb-4'
@@ -43,12 +48,8 @@ const PortfolioCard = () => {
           </span>
         </h2>
       </div>
-      <PortfolioModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        skills={skills}
-      />
-      
+
+      <PortfolioModal isOpen={isOpen} setIsOpen={setIsOpen} skills={skills} />
     </>
   )
 }
