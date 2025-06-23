@@ -6,11 +6,13 @@ interface ActionPanelType {
   setOpenMobileNavbar: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ActionPanel:React.FC<ActionPanelType> = ({ setOpenMobileNavbar }) => {
+const ActionPanel: React.FC<ActionPanelType> = ({ setOpenMobileNavbar }) => {
   return (
     <div className="flex gap-3 items-center">
-      <DirectionalButton label="Let's Talk" />
-      <MobileNavbarBtn setOpenMobileNavbar={setOpenMobileNavbar}/>
+      <a href="tel:+923322440974">
+        <DirectionalButton label="Let's Talk" />
+      </a>
+      <MobileNavbarBtn setOpenMobileNavbar={setOpenMobileNavbar} />
     </div>
   );
 };
