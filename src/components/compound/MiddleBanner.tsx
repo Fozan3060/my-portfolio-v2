@@ -53,8 +53,8 @@ const MiddleBanner = () => {
           </p>
         </div>
 
-        <div className={`flex-col overflow-hidden flex sm:flex-row gap-5 mt-10 transition-transform duration-500 delay-400 h-fit ${
-              inView1 ? 'translate-y-0' : 'translate-y-16'
+        <div className={`flex-col overflow-hidden flex sm:flex-row gap-5 mt-10 transition-transform duration-500 delay-400 ${
+              inView1 ? 'translate-y-0' : 'translate-y-8'
             }`}>
           <HireMeBtn />
           <DirectionalButton label='Download CV' />

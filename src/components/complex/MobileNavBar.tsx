@@ -21,10 +21,10 @@ const sidebarVariants = {
     x: 0,
     transition: {
       type: 'spring',
-      stiffness: 130,  
-      damping: 20,      
-      mass: 0.9,        
-      velocity: 1.5    
+      stiffness: 130,
+      damping: 20,
+      mass: 0.9,
+      velocity: 1.5
     }
   },
   exit: {
@@ -37,8 +37,6 @@ const sidebarVariants = {
     }
   }
 }
-
-
 
 const MobileNavBar: React.FC<MobileNavBarProps> = ({ open, setOpen }) => {
   const [showSidebar, setShowSidebar] = useState(false)
@@ -70,17 +68,21 @@ const MobileNavBar: React.FC<MobileNavBarProps> = ({ open, setOpen }) => {
               variants={sidebarVariants}
               className='fixed top-0 left-0 h-full w-80 bg-background3 z-50 shadow-lg'
             >
-             <div className='flex justify-between items-center px-4 pt-6'>
-              <Logo classname='h-16 w-20' src='/assets/logo.png' />
-             <Button
-                className='cursor-pointer text-3xl  text-white'
-                onClick={() => setOpen(false)}
-              >
-                &times;
-              </Button>
-             </div>
+              <div className='flex justify-between items-center px-4 pt-6'>
+                <Logo classname='h-16 w-20' src='/assets/logo.png' />
+                <Button
+                  className='cursor-pointer text-3xl  text-white'
+                  onClick={() => setOpen(false)}
+                >
+                  &times;
+                </Button>
+              </div>
               <div className='p-8'>
-                <NavigationLinks className='flex flex-col capitalize' LinksClassName='border-b-1 border-border pb-2'/>
+                <NavigationLinks
+                  className='flex flex-col capitalize'
+                  LinksClassName='border-b-1 border-border pb-2'
+                  onNavigate={() => setOpen(false)}
+                />
               </div>
             </motion.div>
           )}
