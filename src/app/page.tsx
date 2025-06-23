@@ -1,5 +1,6 @@
 import AboutMe from '@/components/complex/AboutMe'
 import ContactUs from '@/components/complex/ContactUs'
+import Footer from '@/components/complex/Footer'
 import Herosection from '@/components/complex/Herosection'
 import Portfolio from '@/components/complex/Portfolio'
 import Resume from '@/components/complex/Resume'
@@ -20,6 +21,7 @@ export default function Home () {
       <Resume/>
       <Skills/>
       <ContactUs/>
+      <Footer/>
     </main>
   )
 }

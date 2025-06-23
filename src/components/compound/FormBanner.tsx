@@ -25,10 +25,10 @@ const FormBanner = () => {
       initial={{ x: '-20%', opacity: 0 }}
       animate={hasAnimated ? { x: '0%', opacity: 1 } : { x: '-20%', opacity: 0 }}
       transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
-      className='bg-background sm:w-xl rounded-2xl shadow-2xl'
+      className='bg-background sm:w-xl rounded-2xl mx-auto xl:mx-0 shadow-2xl'
       style={{
         boxShadow:
-          ' 0px 0px 12px rgba(255, 255, 255, 0.05),  0px 0px 8px rgba(0, 0, 0, 0.18)      '
+          ' 0px 0px 12px rgba(255, 255, 255, 0.05),  0px 0px 8px rgba(0, 0, 0, 0.18)  '
       }}
     >
       <div className='p-10'>

@@ -18,7 +18,7 @@ export const ResumeCard: React.FC<ResumeCardType> = ({
       <VerticalTimelineElement
         contentStyle={{
           background: '#171717',
-          boxShadow: ' 0px 0px 12px rgba(255, 255, 255, 0.05),  0px 0px 8px rgba(0, 0, 0, 0.18)      ',
+          boxShadow: ' 0px 0px 12px rgba(255, 255, 255, 0.05),  0px 0px 8px rgba(0, 0, 0, 0.18)',
           color: '#fff'
         }}
         date={date}
