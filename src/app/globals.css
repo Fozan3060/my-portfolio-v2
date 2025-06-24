@@ -1,26 +1,160 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-background: #171717;
+  --color-background2: #121212;
+  --color-background3: #0f0f13;
+  --color-border: #FFFFFF0D;
+  --color-custom-orange: #ff9776;
+  --color-text1: rgb(153, 153, 153);
+  --color-text2: #999999;
+  --color-text3: #dddddd;
+  --font-sora: "font", sora;
+  --breakpoint-small_phone: 350px;
+  --breakpoint-medium_phone: 400px;
+  --breakpoint-semi_lg: 1150px;
+  --breakpoint-semi_md: 990px;
+  --gradient-card-bg: linear-gradient(145deg, #1e2024, #23272b);
+  --shadow-neumorphic: 10px 10px 19px #1c1e22, -10px -10px 19px #262a2e;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.directional-overlay {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.directional-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: white;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+  z-index: 0;
+  /* Keep behind content */
+  pointer-events: none;
+}
+
+.directional-overlay:hover::before {
+  transform: translateX(0%);
+}
+
+.herosection {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: url('/assets/hero.webp');
+}
+
+.portfolioCard {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-scaleIn {
+  animation: scaleIn 0.3s ease-out forwards;
+}
+
+.swiper-pagination-bullet {
+  border: 2px solid white !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  background: transparent !important;
+  position: relative !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet::after {
+  content: "";
+  height: 10px;
+  width: 10px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: white;
+}
+
+.swiper-pagination {
+  bottom: 0rem !important;
+}
+
+.swiper-wrapper {
+  margin-bottom: 5rem !important;
+}
+
+.swiper-pagination-bullet-active::after {
+  background: #ff9776 !important;
+}
+
+.swiper-pagination-bullet-active {
+  border: 2px solid #ff9776 !important;
+}
+
+
+.vertical-timeline.vertical-timeline--two-columns:before {
+  left: 0% !important;
+  margin-left: 0 !important;
+  border: 1px solid #121212;
+}
+
+.vertical-timeline--two-columns .vertical-timeline-element-icon {
+  left: 0% !important;
+  height: 1rem !important;
+  width: 1rem !important;
+  margin-left: -6px !important;
+  /* position: absolute !important; */
+}
+
+.vertical-timeline--two-columns .vertical-timeline-element-content-arrow {
+
+visibility: hidden !important;  
+  
+}
+
+.vertical-timeline-element-content {
+  margin-left: 3rem !important;
+   width: fit-content !important;
+}
+
+.vertical-timeline--two-columns .vertical-timeline-element-content .vertical-timeline-element-date {
+  display: inline-block !important;
+  position: relative !important;
+  left: 0% !important;
+}
+
+.vertical-timeline-element>span:first-of-type {
+  background-color: #171717 !important;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f0f0f; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #f97316; 
+  border-radius: 9999px;
+  border: 2px solid #0f0f0f; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #fb923c; 
 }
