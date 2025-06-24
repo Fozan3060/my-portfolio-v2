@@ -24,7 +24,9 @@ const FormEmail: React.FC = () => {
     message: ''
   })
 
-  const handleChange = (e: { target: HTMLInputElement | HTMLTextAreaElement }) => {
+  const handleChange = (e: {
+    target: HTMLInputElement | HTMLTextAreaElement
+  }) => {
     const { target } = e
     const { name, value } = target
 
@@ -36,14 +38,15 @@ const FormEmail: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-
-    const serviceId = process.env.GATSBY_EMAILJS_SERVICE_ID
-    const templateId = process.env.GATSBY_EMAILJS_TEMPLATE_ID
-    const publicKey = process.env.GATSBY_EMAILJS_PUBLIC_KEY
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
 
     if (!serviceId || !templateId || !publicKey) {
       console.error('Missing EmailJS environment variables.')
-      alert('Email service is not configured properly. Please contact the site administrator.')
+      alert(
+        'Email service is not configured properly. Please contact the site administrator.'
+      )
       return
     }
 
@@ -54,9 +57,10 @@ const FormEmail: React.FC = () => {
         serviceId,
         templateId,
         {
-          from_name: form.name,
-          from_email: form.email,
-          message: form.message
+          name: form.name,
+          email: form.email,
+          description: form.message,
+          time: new Date().toLocaleString()
         },
         publicKey
       )
