@@ -1,6 +1,7 @@
 import AboutMe from '@/components/complex/AboutMe'
 import ContactUs from '@/components/complex/ContactUs'
 import Footer from '@/components/complex/Footer'
+import Header from '@/components/complex/Header'
 import Herosection from '@/components/complex/Herosection'
 import Portfolio from '@/components/complex/Portfolio'
 import Resume from '@/components/complex/Resume'
@@ -12,16 +13,17 @@ import Personalnfo from '@/components/compound/Personalnfo'
 export default function Home () {
   return (
     <main>
+      <Header />
       <Herosection />
       <AboutMe />
       <Personalnfo />
       <Services />
       <Portfolio />
       <Reviews />
-      <Resume/>
-      <Skills/>
-      <ContactUs/>
-      <Footer/>
+      <Resume />
+      <Skills />
+      <ContactUs />
+      <Footer />
     </main>
   )
 }

@@ -1,12 +1,19 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import HireMeBtn from './HireMeBtn'
 import DirectionalButton from './DirectionalButton'
 import BannerImage from './BannerImage'
 import useInView from '@/hooks/useInView'
+import { SanityHero } from '@/types/sanity'
+import { getHeroData, getPortfolioProjects } from '../../../queries'
 
 const MiddleBanner = () => {
+  const [herodata, setHeroData] = useState<SanityHero>()
+  useEffect(() => {
+    getHeroData().then(setHeroData)
+    console.log(getPortfolioProjects())
+  }, [])
   const { ref: ref1, isInView: inView1 } = useInView<HTMLHeadingElement>(
     0.2,
     true
@@ -47,17 +54,24 @@ const MiddleBanner = () => {
               inView1 ? 'translate-y-0' : ' translate-y-24 sm:translate-y-16'
             }`}
           >
-            {
-              "I'm a Full-Stack developer with 3+ years of experience in building scalable web applications. I specialize in creating high-performance, user-friendly websites."
-            }
+            {herodata?.description}
           </p>
         </div>
 
-        <div className={`flex-col overflow-hidden flex sm:flex-row gap-5 mt-10 transition-transform duration-500 delay-400 ${
-              inView1 ? 'translate-y-0' : 'translate-y-8'
-            }`}>
+        <div
+          className={`flex-col overflow-hidden flex sm:flex-row gap-5 mt-10 transition-transform duration-500 delay-400 ${
+            inView1 ? 'translate-y-0' : 'translate-y-8'
+          }`}
+        >
           <HireMeBtn />
-          <DirectionalButton label='Download CV' />
+          <DirectionalButton
+            onClick={() => {
+              if (herodata?.cv?.asset?.url) {
+                window.open(herodata.cv.asset.url, '_blank')
+              }
+            }}
+            label='Download CV'
+          />
         </div>
       </div>
       <BannerImage />
