@@ -5,13 +5,17 @@ import Image from 'next/image'
 import { MdArrowOutward } from 'react-icons/md'
 import PortfolioModal from '../compound/PortfolioModal'
 import useInView from '@/hooks/useInView'
+import { SanityProject } from '@/types/sanity'
+import { urlFor } from '@/sanity/lib/image'
 
-const skills = ['React', 'TypeScript', 'Tailwind CSS', 'Jest']
+type Props = {
+  project: SanityProject
+}
 
-const PortfolioCard = () => {
+const PortfolioCard = ({ project }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const { ref, isInView } = useInView<HTMLDivElement>(0.2, true)
-
+  console.log(urlFor(project.image))
   return (
     <>
       <div
@@ -26,16 +30,16 @@ const PortfolioCard = () => {
           onClick={() => setIsOpen(true)}
         >
           <Image
-            src={'/assets/MerchantraFinal.webp'}
+            src={urlFor(project.image).url()}
+            alt={project.projectName}
             width={400}
             height={400}
-            className='w-full h-full cursor-pointer transition-transform duration-400 hover:scale-110'
-            alt='ProjectImage'
+            className='w-full h-full object-cover'
           />
         </div>
 
         <h3 className='text-custom-orange mb-2 font-bold uppercase text-sm tracking-wide'>
-          Development
+          {project.category}
         </h3>
 
         <h2
@@ -43,13 +47,21 @@ const PortfolioCard = () => {
           onClick={() => setIsOpen(true)}
         >
           <span>
-            Merchantra Ecommerce Website
+            {project.projectName}
             <MdArrowOutward className='transition-transform inline-block scale-0 ease-out group-hover:scale-125 group-hover:translate-x-1 ml-3 duration-300 mb-1' />
           </span>
         </h2>
       </div>
 
-      <PortfolioModal isOpen={isOpen} setIsOpen={setIsOpen} skills={skills} />
+      <PortfolioModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        skills={project.skills}
+        description={project.description}
+        link={project.link}
+        name={project.projectName}
+        img={project.image}
+      />
     </>
   )
 }

@@ -1,15 +1,27 @@
-'use client';
+'use client'
 
-import React from 'react';
-import Image from 'next/image';
-import SectionWrapper from '../ui/SectionWrapper';
-import PersonalInfoItem from '../ui/PersonalInfoItem';
-import Wrapper from '../complex/Wrapper';
-import useInView from '@/hooks/useInView';
+import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
+import SectionWrapper from '../ui/SectionWrapper'
+import PersonalInfoItem from '../ui/PersonalInfoItem'
+import Wrapper from '../complex/Wrapper'
+import useInView from '@/hooks/useInView'
+import { SanityAboutMe } from '@/types/sanity'
+import { getAboutMeData } from '../../../queries'
 
 const Personalnfo = () => {
-  const { ref: imageRef, isInView: imageInView } = useInView<HTMLDivElement>(0.2, true);
-  const { ref: textRef, isInView: textInView } = useInView<HTMLDivElement>(0.2, true);
+  const [personalinfo, setPersonalinfo] = useState<SanityAboutMe | null>(null)
+  useEffect(() => {
+    getAboutMeData().then(setPersonalinfo)
+  }, [])
+  const { ref: imageRef, isInView: imageInView } = useInView<HTMLDivElement>(
+    0.2,
+    true
+  )
+  const { ref: textRef, isInView: textInView } = useInView<HTMLDivElement>(
+    0.2,
+    true
+  )
 
   const personalInfo = [
     { label: 'Name', value: 'Fozan Javaid' },
@@ -18,7 +30,7 @@ const Personalnfo = () => {
     { label: 'Email', value: 'Fozanjavaid111@gmail.com' },
     { label: 'Freelance', value: 'Available' },
     { label: 'Language', value: 'Urdu, English' }
-  ];
+  ]
 
   return (
     <Wrapper>
@@ -46,12 +58,10 @@ const Personalnfo = () => {
                 textInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
               }`}
             >
-              <h2 className='text-4xl font-bold text-white mb-5'>Personal Info</h2>
-              <p className='text-text1 mb-10'>
-                I&apos;m a Full-Stack JavaScript developer with 3+ years of experience building fast,
-                scalable web applications using React, Next.js, Node.js, and AWS. I focus on delivering
-                smooth user experiences, clean code, and efficient CI/CD workflows.
-              </p>
+              <h2 className='text-4xl font-bold text-white mb-5'>
+                Personal Info
+              </h2>
+              <p className='text-text1 mb-10'>{personalinfo?.personalInfo}</p>
 
               {personalInfo.map((item, index) => (
                 <PersonalInfoItem
@@ -66,7 +76,7 @@ const Personalnfo = () => {
         </div>
       </SectionWrapper>
     </Wrapper>
-  );
-};
+  )
+}
 
-export default Personalnfo;
+export default Personalnfo
