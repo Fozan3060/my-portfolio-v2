@@ -47,7 +47,7 @@ const MiddleBanner = () => {
                 inView1 ? 'translate-y-0 opacity-100' : '2xl:translate-y-24 translate-y-10 opacity-0'
               }`}
             >
-              Hay' i m
+              Hay&apos; i m
             </h1>
           </div>
           <div className='overflow-hidden h-fit'>
