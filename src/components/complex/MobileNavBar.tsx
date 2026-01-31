@@ -13,14 +13,14 @@ const overlayVariants = {
   hidden: { opacity: 0, x: '-100%' },
   visible: { opacity: 0.5, x: 0, transition: { duration: 0.3 } },
   exit: { opacity: 0, x: '-100%', transition: { duration: 0.2 } }
-}
+} as const
 
 const sidebarVariants = {
   hidden: { x: '-100%' },
   visible: {
     x: 0,
     transition: {
-      type: 'spring',
+      type: 'spring' as const,
       stiffness: 130,
       damping: 20,
       mass: 0.9,
@@ -30,7 +30,7 @@ const sidebarVariants = {
   exit: {
     x: '-100%',
     transition: {
-      type: 'spring',
+      type: 'spring' as const,
       stiffness: 130,
       damping: 20,
       mass: 0.9
