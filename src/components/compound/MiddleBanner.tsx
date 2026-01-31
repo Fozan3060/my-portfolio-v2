@@ -8,6 +8,21 @@ import useInView from '@/hooks/useInView'
 import { SanityHero } from '@/types/sanity'
 import { getHeroData, getPortfolioProjects } from '../../../queries'
 import { SiNextdotjs, SiTypescript, SiVercel } from 'react-icons/si'
+import { motion, useSpring, useTransform } from 'framer-motion'
+
+// Animated counter component for stats
+const AnimatedStat = ({ value, inView }: { value: number; inView: boolean }) => {
+  const springValue = useSpring(0, { stiffness: 100, damping: 20 })
+  const displayedValue = useTransform(springValue, (latest) => Math.round(latest))
+
+  useEffect(() => {
+    if (inView) {
+      springValue.set(value)
+    }
+  }, [inView, value, springValue])
+
+  return <motion.span>{displayedValue}</motion.span>
+}
 
 const roles = ['AI/LLM Developer', 'AI Full Stack Engineer', 'Problem Solver']
 
@@ -77,7 +92,7 @@ const MiddleBanner = () => {
         <div className='min-h-[80px] mt-4'>
           <p
             className={`text-white text-lg 2xl:text-xl font-medium tracking-wider max-w-2xl transition-all duration-700 ease-out delay-500 ${
-              inView1 ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+              inView1 && herodata?.description ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
             }`}
           >
             {herodata?.description}
@@ -109,17 +124,23 @@ const MiddleBanner = () => {
         >
           <div className='flex flex-wrap items-center gap-2 sm:gap-6 text-white/80'>
             <div className='flex items-center gap-1 sm:gap-2'>
-              <span className='text-lg sm:text-2xl font-bold text-custom-orange'>4+</span>
+              <span className='text-lg sm:text-2xl font-bold text-custom-orange'>
+                <AnimatedStat value={4} inView={inView1} />+
+              </span>
               <span className='text-xs sm:text-sm'>Years Experience</span>
             </div>
             <span className='hidden sm:block w-1 h-1 rounded-full bg-white/40'></span>
             <div className='flex items-center gap-1 sm:gap-2'>
-              <span className='text-lg sm:text-2xl font-bold text-custom-orange'>50+</span>
+              <span className='text-lg sm:text-2xl font-bold text-custom-orange'>
+                <AnimatedStat value={50} inView={inView1} />+
+              </span>
               <span className='text-xs sm:text-sm'>Clients</span>
             </div>
             <span className='hidden sm:block w-1 h-1 rounded-full bg-white/40'></span>
             <div className='flex items-center gap-1 sm:gap-2'>
-              <span className='text-lg sm:text-2xl font-bold text-custom-orange'>20+</span>
+              <span className='text-lg sm:text-2xl font-bold text-custom-orange'>
+                <AnimatedStat value={20} inView={inView1} />+
+              </span>
               <span className='text-xs sm:text-sm'>Projects</span>
             </div>
           </div>
