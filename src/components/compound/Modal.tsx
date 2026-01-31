@@ -48,7 +48,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
                 w-12 aspect-square flex items-center justify-center 
                 rounded-full'
             />
-            <div className="overflow-y-auto max-h-[70vh] scroll-smooth pr-2">
+            <div className="overflow-x-hidden overflow-y-auto max-h-[70vh] scroll-smooth pr-2 pb-4">
               {children}
             </div>
           </motion.div>
