@@ -41,15 +41,15 @@ const AboutMe = () => {
             }`}
           >
             <h2 className='bg-gradient-to-r from-[var(--color-custom-orange)] to-white bg-clip-text text-transparent text-[26px] sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold'>
-              Crafting Web Applications with Passion and Precision
+              Crafting AI-Powered Web Applications with Passion and Precision
             </h2>
             <p className='mt-6 text-lg text-text2'>{aboutData?.description}</p>
 
             <div className='mt-10 flex flex-col gap-5'>
               {[
-                'Front-end Development',
-                'Back-end Development',
-                'Full Stack Development'
+                'Full Stack Development',
+                'AI/LLM Integration',
+                'RAG & Chatbot Systems'
               ].map((desc, idx) => (
                 <div
                   key={desc}
