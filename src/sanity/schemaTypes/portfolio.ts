@@ -14,6 +14,13 @@ export const portfolio = defineType({
       name: 'category',
       title: 'Category',
       type: 'string',
+      options: {
+        list: [
+          { title: 'Full Stack Development', value: 'Full Stack Development' },
+          { title: 'AI/LLM Full Stack Development', value: 'AI/LLM Full Stack Development' },
+        ],
+        layout: 'dropdown',
+      },
     }),
     defineField({
       name: 'image',
