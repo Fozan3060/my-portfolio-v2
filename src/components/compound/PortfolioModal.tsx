@@ -11,6 +11,7 @@ type PortfolioModalType = {
   skills: string[]
   description: string
   name: string
+  category: string
   link: string
   img: string
 }
@@ -21,12 +22,13 @@ const PortfolioModal: React.FC<PortfolioModalType> = ({
   skills,
   description,
   name,
+  category,
   link,
   img
 }) => {
   return (
     <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-      <div className='flex sm:w-[26rem]  lg:w-full m-auto semi_md:flex-row flex-col gap-16'>
+      <div className='flex sm:w-[26rem] lg:w-full m-auto semi_md:flex-row flex-col gap-16 overflow-hidden'>
         <Image
           src={urlFor(img).url()}
           width={800}
@@ -37,11 +39,14 @@ const PortfolioModal: React.FC<PortfolioModalType> = ({
         />
         <div className='flex flex-col justify-between'>
           <div>
-            <h2 className='text-2xl  font-semibold text-custom-orange'>
+            <span className='text-custom-orange text-xs font-bold uppercase tracking-wide'>
+              {category}
+            </span>
+            <h2 className='text-2xl font-semibold text-text3 mt-1'>
               {name}
             </h2>
-            <p className='text-text2 mt-4 mb-6 lg:text-lg'>{description}</p>
-            <div className='flex mb-10 semi_md:mb-0 semi_md:text-sm lg:text-base items-center flex-wrap gap-2 '>
+            <p className='text-text2 mt-4 mb-8 lg:text-lg'>{description}</p>
+            <div className='flex mb-10 semi_md:mb-6 semi_md:text-sm lg:text-base items-center flex-wrap gap-3'>
               {skills.map(skill => (
                 <span
                   key={skill}
@@ -53,14 +58,16 @@ const PortfolioModal: React.FC<PortfolioModalType> = ({
             </div>
           </div>
 
-          <a href={link} className='w-32'>
-            <DirectionalButton>
-              <span className='flex items-center justify-center gap-3 '>
-                <span>View Project</span>
-                <FaArrowUpRightFromSquare size={20} />
-              </span>
-            </DirectionalButton>
-          </a>
+          <div className='overflow-hidden py-2 -my-2 px-3 -mx-3'>
+            <a href={link} className='w-32 block'>
+              <DirectionalButton>
+                <span className='flex items-center justify-center gap-3 '>
+                  <span>View Project</span>
+                  <FaArrowUpRightFromSquare size={20} />
+                </span>
+              </DirectionalButton>
+            </a>
+          </div>
         </div>
       </div>
     </Modal>

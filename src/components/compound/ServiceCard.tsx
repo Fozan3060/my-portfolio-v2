@@ -32,14 +32,16 @@ const ServiceCard: React.FC<ServiceCardType> = ({
       style={{
         transitionDelay: isInView ? delay : '0ms'
       }}
-      className={`${
-        isInView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-16'
+      className={`h-full ${
+        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       } transition-all duration-700 ease-out`}
     >
-      <Tilt className='shadow-2xl p-6 rounded-lg bg-custom-orange will-change-transform transition-[transform] duration-[400ms] ease-[cubic-bezier(0.03,0.98,0.52,0.99)] perspective-[1000px] scale-100'>
-        <Image width={60} height={60} src={ServiceImage.asset.url} alt={ServiceName}  />
-        <h3 className='mt-4 2xl:text-lg font-bold text-white'>{ServiceName}</h3>
-        <p className='mt-3 text-sm 2xl:text-base text-white text-opacity-80'>
+      <Tilt className='h-full p-7 rounded-2xl bg-gradient-to-br from-[#1A1A1A] to-[#212121] shadow-[10px_10px_15px_#0A0A0A,-10px_-10px_15px_#2C2C2C] hover:shadow-[12px_12px_20px_#0A0A0A,-12px_-12px_20px_#2C2C2C] will-change-transform transition-all duration-400 ease-[cubic-bezier(0.03,0.98,0.52,0.99)] perspective-[1000px] group'>
+        <div className='w-14 h-14 rounded-xl bg-[#3a3a3a] flex items-center justify-center mb-5 group-hover:bg-[#454545] transition-colors duration-300'>
+          <Image width={36} height={36} src={ServiceImage.asset.url} alt={ServiceName} className='object-contain' />
+        </div>
+        <h3 className='text-lg 2xl:text-xl font-bold text-white mb-3'>{ServiceName}</h3>
+        <p className='text-sm 2xl:text-base text-text2 leading-relaxed'>
           {ServiceDescription}
         </p>
       </Tilt>

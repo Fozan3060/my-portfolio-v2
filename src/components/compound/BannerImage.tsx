@@ -33,10 +33,9 @@ const BannerImage = () => {
         alt='Banner Image'
         width={550}
         height={550}
-        className='transition-transform'
+        className='transition-transform duration-700 ease-out'
         style={{
-          transform: `translate(${transform.x}px, ${transform.y + baseTranslateY}px)`,
-          transition: 'transform 0.3s ease'
+          transform: `translate(${transform.x}px, ${transform.y + baseTranslateY}px)`
         }}
       />
     </div>
