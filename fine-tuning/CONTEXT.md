@@ -11,173 +11,186 @@ Use this file to provide context to any AI assistant to continue the fine-tuning
 **Current Status:**
 - ✅ Phase 1: Basic chatbot with system prompt (COMPLETE)
 - ✅ Dataset created (78 Q&A pairs)
-- ✅ Training scripts ready
-- 🔄 Phase 2: Fine-tuning (IN PROGRESS - need to run on RTX 4060)
-- ⏳ Phase 3: Production deployment to Cloudflare (PENDING)
+- ✅ Training scripts ready (PC + Mac)
+- ✅ PC Training: LoRA weights created on RTX 4060
+- ✅ Mac Training: MLX LoRA weights created on M1 Pro
+- ✅ MLX model fused
+- ✅ Phase 2: Merging & GGUF conversion (COMPLETE)
+- ✅ Ollama model created: `fozan-assistant`
+- ✅ Phase 3: Modal production deployment (COMPLETE)
 
 **Repository:** https://github.com/Fozan3060/my-portfolio-v2
 **Branch:** `feature/fine-tuning`
 
 ---
 
-## What's Been Done
+## What Was Done (Complete Pipeline)
 
-### 1. AI Chatbot Implementation (Phase 1)
-- Built a floating chatbot widget in Next.js
-- Integrated with Ollama (local) and Cloudflare Workers AI (production)
-- Created provider abstraction pattern
-- Streaming responses via Server-Sent Events
-- UI matches portfolio dark theme with orange accent (#ff9776)
+### Phase 1: Training
 
-### 2. Fine-tuning Setup (Phase 2)
-Created the following files in `/fine-tuning/`:
+#### PC Training (RTX 4060)
+- Used Unsloth + QLoRA (4-bit quantization)
+- Trained on 78 Q&A pairs for 3 epochs
+- Output: `models/pc-unsloth-lora/` (~160MB adapter)
+- Time: ~30-60 minutes
 
-| File | Purpose |
-|------|---------|
-| `dataset.jsonl` | 78 Q&A pairs about Fozan |
-| `train.py` | Training script using Unsloth + QLoRA |
-| `Modelfile` | Ollama configuration for custom model |
-| `README.md` | Detailed instructions |
+#### Mac Training (M1 Pro)
+- Used MLX + LoRA
+- Trained on same dataset
+- Output: `models/mac-mlx-lora/`
+- Time: ~5-10 minutes
 
-### 3. Dataset Contents
-The dataset covers:
-- Professional info (skills, services, 4+ years experience)
-- Work history (Freelancer, OnlyGamers Norway, Creative Squad Canada)
-- Projects (Persona AI, Career Coach AI, Merchantra, DayOf, ShoutOut)
-- Personal (born April 2 2004, gaming, fast food, NVIDIA/Apple fan)
-- Education (FAST NUCE, self-taught via Udemy)
-- Contact info and hiring questions
-- Casual conversations and greetings
+### Phase 2: Merging & Conversion
+
+#### Why Merging Was Needed
+```
+LoRA Adapter (160MB) + Base Model (16GB) = Complete Fine-tuned Model
+```
+- LoRA only stores the "diff" from base model
+- For inference, need to merge them together
+
+#### Steps Completed
+1. **Installed dependencies:**
+   ```bash
+   pip3 install peft transformers accelerate
+   ```
+
+2. **Merged LoRA with base model:**
+   ```bash
+   python3 merge_unsloth.py
+   ```
+   - Downloaded `unsloth/Meta-Llama-3.1-8B-Instruct` (~16GB)
+   - Loaded LoRA adapter
+   - Merged weights
+   - Output: `models/merged-model/` (~16GB)
+
+3. **Converted to GGUF for Ollama:**
+   ```bash
+   git clone https://github.com/ggerganov/llama.cpp ~/llama.cpp
+   pip3 install gguf
+   python3 ~/llama.cpp/convert_hf_to_gguf.py "./models/merged-model" \
+     --outfile "./models/fozan-assistant.gguf" --outtype q8_0
+   ```
+   - Output: `models/fozan-assistant.gguf` (8.5GB, Q8_0 quantization)
+
+4. **Created Ollama model:**
+   ```bash
+   ollama create fozan-assistant -f Modelfile.gguf
+   ollama run fozan-assistant "Who is Fozan?"
+   ```
+
+5. **Updated app config:**
+   - Changed `.env.local`: `OLLAMA_MODEL=fozan-assistant`
+
+### Phase 3: Production Deployment (In Progress)
+
+#### Why Not Cloudflare?
+Initially planned to use Cloudflare Workers AI, but discovered:
+- Cloudflare only supports their pre-built models
+- **Cannot upload custom fine-tuned models**
+
+#### Solution: Hugging Face Spaces with ZeroGPU
+- **Free GPU inference** via ZeroGPU program
+- **Supports custom models**
+- API endpoint for portfolio
+
+#### ZeroGPU Quota Limits
+| Resource | Limit |
+|----------|-------|
+| GPU Hours | ~50 hours/month |
+| GPU Type | NVIDIA A10G or T4 |
+| Cold Start | 2-5 seconds |
+| Concurrent | Shared |
+
+#### Steps to Complete
+1. Create Hugging Face account
+2. Create access token (Write permission)
+3. Login: `python3 -m huggingface_hub.commands.huggingface_cli login`
+4. Upload: `python3 upload_to_huggingface.py`
+5. Wait for Space to build
+6. Update portfolio to use HF API
 
 ---
 
-## Current Task: Run Fine-tuning on RTX 4060
+## File Structure
 
-### Hardware
-- PC with NVIDIA RTX 4060 (8GB VRAM)
-- Windows or Linux
-
-### Steps to Complete
-
-#### 1. Clone and Setup
-```bash
-git clone https://github.com/Fozan3060/my-portfolio-v2.git
-cd my-portfolio-v2
-git checkout feature/fine-tuning
-cd fine-tuning
 ```
-
-#### 2. Create Python Environment
-```bash
-python -m venv fine-tune-env
-
-# Windows:
-fine-tune-env\Scripts\activate
-
-# Linux:
-source fine-tune-env/bin/activate
-```
-
-#### 3. Install Dependencies
-```bash
-# PyTorch with CUDA
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-
-# Unsloth (fast fine-tuning library)
-pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
-
-# Other dependencies
-pip install --no-deps trl peft accelerate bitsandbytes
-pip install datasets
-```
-
-#### 4. Verify GPU
-```bash
-python -c "import torch; print(f'CUDA: {torch.cuda.is_available()}'); print(f'GPU: {torch.cuda.get_device_name(0)}')"
-```
-
-#### 5. Run Training
-```bash
-python train.py
-```
-
-**Expected:**
-- Duration: 2-4 hours
-- Output folder: `fozan-assistant-lora/`
-
-#### 6. Export Model
-```bash
-python -c "
-from unsloth import FastLanguageModel
-model, tokenizer = FastLanguageModel.from_pretrained('fozan-assistant-lora')
-model.save_pretrained_merged('fozan-assistant-merged', tokenizer, save_method='merged_16bit')
-print('Done!')
-"
-```
-
-#### 7. Transfer to Mac
-Copy `fozan-assistant-merged/` folder to Mac via:
-- USB drive
-- Cloud storage (Google Drive, Dropbox)
-- Network transfer
-
-#### 8. On Mac - Create Ollama Model
-```bash
-cd my-portfolio-v2/fine-tuning
-# (after copying fozan-assistant-merged/ here)
-ollama create fozan-assistant -f Modelfile
-ollama run fozan-assistant "Who is Fozan?"
-```
-
-#### 9. Update App
-```bash
-# In .env.local change:
-OLLAMA_MODEL=fozan-assistant
-```
-
----
-
-## Troubleshooting
-
-### CUDA Out of Memory
-Edit `train.py`:
-```python
-BATCH_SIZE = 1  # Change from 2
-```
-
-### Unsloth Install Issues
-```bash
-pip install ninja packaging
-pip install flash-attn --no-build-isolation
-```
-
-### Verify Training is Using GPU
-```bash
-nvidia-smi  # Should show python using GPU memory
+fine-tuning/
+├── models/                          # Trained models (gitignored)
+│   ├── pc-unsloth-lora/            # ✅ LoRA from PC
+│   ├── mac-mlx-lora/               # ✅ LoRA from Mac
+│   ├── fused-mlx-model/            # ✅ Fused MLX (4-bit)
+│   ├── merged-model/               # ✅ Merged HF model (16GB)
+│   └── fozan-assistant.gguf        # ✅ GGUF for Ollama (8.5GB)
+├── huggingface-space/              # HF Space files
+│   ├── app.py                      # Gradio app with ZeroGPU
+│   ├── requirements.txt
+│   └── README.md
+├── data/                           # MLX training data
+│   ├── train.jsonl
+│   └── valid.jsonl
+├── dataset.jsonl                   # 78 Q&A pairs
+├── train.py                        # PC training (Unsloth)
+├── train_mlx.py                    # Mac training (MLX)
+├── merge_unsloth.py                # Merge LoRA + base model
+├── fuse_mlx.py                     # Fuse MLX LoRA
+├── convert_gguf.py                 # GGUF conversion helper
+├── upload_to_huggingface.py        # Upload to HF
+├── run_mlx_server.py               # Local MLX server
+├── Modelfile.gguf                  # Ollama config
+├── README.md                       # Full documentation
+└── CONTEXT.md                      # This file
 ```
 
 ---
 
-## After Fine-tuning Complete
+## Hardware Insights
 
-### Next Steps (Phase 3)
-1. Test fine-tuned model locally
-2. Set up Cloudflare Workers AI account
-3. Add Cloudflare credentials to Vercel
-4. Deploy to production
-5. Merge branches to main
+### Fine-tuning vs Inference Memory
 
-### Production Environment Variables Needed
-```
-CLOUDFLARE_ACCOUNT_ID=<your_account_id>
-CLOUDFLARE_API_TOKEN=<your_api_token>
-```
+| Task | Memory Needed | Why |
+|------|---------------|-----|
+| Fine-tuning | ~3-4x model size | Model + gradients + optimizer |
+| Inference | ~1x model size | Just model weights |
+
+### Hardware Comparison
+
+| Hardware | Fine-tuning (QLoRA) | Inference |
+|----------|---------------------|-----------|
+| RTX 4060 (8GB) | Up to 8B | Up to 8B |
+| M1 Pro (32GB) | Up to 13B | Up to 70B (4-bit) |
+
+**Key insight:**
+- RTX 4060 = Better for training (CUDA, tensor cores)
+- M1 Pro = Better for inference (more unified memory)
+
+---
+
+## Key Technical Concepts
+
+### LoRA (Low-Rank Adaptation)
+- Trains small "adapter" layers instead of full model
+- Adapter size: ~160MB vs 16GB full model
+- Same quality, much less compute
+
+### QLoRA (Quantized LoRA)
+- Base model loaded in 4-bit precision
+- LoRA trained in 16-bit
+- Fits 8B model in 8GB VRAM
+
+### GGUF Format
+- Optimized format for CPU/GPU inference
+- Used by Ollama, llama.cpp
+- Supports various quantization levels (Q4, Q8, etc.)
+
+### ZeroGPU
+- Hugging Face's free GPU sharing program
+- On-demand GPU allocation
+- "Zero" = zero cost, NOT zero GPU
 
 ---
 
 ## Key Information About Fozan
-
-For any AI helping with this project, here's the context:
 
 **Fozan Javaid**
 - Full-Stack AI/LLM Engineer, 4+ years experience
@@ -193,49 +206,44 @@ For any AI helping with this project, here's the context:
 - AI: LLM Integration, RAG, Multi-agent systems, Pinecone
 - Cloud: AWS, Vercel, Docker
 
-**Services:**
-- AI/LLM Integration
-- RAG Systems
-- AI Chatbots
-- Full-Stack Development
-- Payment Integration (Stripe)
-
 **Notable Projects:**
 - Persona AI (HeyGen + Pinecone + Gemini)
 - Career Coach AI (Multi-agent system)
-- This portfolio chatbot (Llama 3.1 8B)
+- This portfolio chatbot (Llama 3.1 8B fine-tuned)
 
 ---
 
-## File Structure
+## Troubleshooting
 
-```
-my-portfolio-v2/
-├── fine-tuning/
-│   ├── dataset.jsonl      # 78 Q&A training pairs
-│   ├── train.py           # Unsloth training script
-│   ├── Modelfile          # Ollama config
-│   ├── README.md          # Instructions
-│   └── CONTEXT.md         # This file
-├── src/
-│   ├── app/api/chat/      # Streaming API route
-│   ├── components/        # Chat UI components
-│   ├── hooks/useChat.ts   # Chat state management
-│   └── lib/chat/          # Providers + system prompt
-└── docs/
-    └── CHATBOT_IMPLEMENTATION_PLAN.md
-```
+### Merge script downloads 16GB every time
+The base model is cached in `~/.cache/huggingface/`. First run downloads, subsequent runs use cache.
+
+### MLX model can't convert to GGUF
+MLX uses proprietary 4-bit format. Use `merge_unsloth.py` with PC LoRA instead.
+
+### Hugging Face upload slow
+Model is ~16GB. Use stable internet. Can take 30+ minutes.
+
+### Space shows "Building" forever
+Check Space logs. Common issues:
+- Wrong Python version
+- Missing dependencies
+- OOM errors
 
 ---
 
-## Questions for AI Assistant
+## Completed Implementation
 
-If you're an AI helping continue this project, you might need to:
+All phases are complete:
+1. ✅ Fine-tuning on PC (Unsloth) and Mac (MLX)
+2. ✅ Model merged and uploaded to HuggingFace
+3. ✅ Modal deployment with A10G GPU and model caching
+4. ✅ Portfolio integration with `src/lib/chat/modal.ts`
+5. ✅ Vercel deployment with environment variables
 
-1. Help troubleshoot training issues
-2. Adjust training parameters if OOM errors
-3. Help with model export/conversion
-4. Assist with Ollama model creation
-5. Help set up Cloudflare production deployment
+**Production URLs:**
+- Portfolio: https://my-portfolio-v2-two-phi.vercel.app
+- Modal API: https://fozan3060--fozan-assistant-chat.modal.run
+- HuggingFace Model: https://huggingface.co/fozan3060/fozan-assistant
 
 The user (Fozan) is technically skilled and can follow terminal commands.

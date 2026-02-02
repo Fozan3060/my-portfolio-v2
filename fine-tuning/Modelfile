@@ -1,4 +1,4 @@
-FROM ./fozan-assistant-merged
+FROM ./models/merged-model
 
 PARAMETER temperature 0.7
 PARAMETER top_p 0.9

@@ -11,6 +11,7 @@ import { ChatMessage as ChatMessageType } from '@/types/chat'
 type ChatWindowProps = {
   messages: ChatMessageType[]
   isTyping: boolean
+  isWarming?: boolean
   onSendMessage: (message: string) => void
   onClose: () => void
 }
@@ -18,6 +19,7 @@ type ChatWindowProps = {
 const ChatWindow: React.FC<ChatWindowProps> = ({
   messages,
   isTyping,
+  isWarming,
   onSendMessage,
   onClose,
 }) => {
@@ -46,7 +48,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           </div>
           <div>
             <h3 className="text-white font-semibold">Fozan&apos;s Assistant</h3>
-            <p className="text-text2 text-xs">Ask me anything about Fozan</p>
+            <p className="text-text2 text-xs">
+              {isWarming ? 'Warming up AI...' : 'Ask me anything about Fozan'}
+            </p>
           </div>
         </div>
         <button

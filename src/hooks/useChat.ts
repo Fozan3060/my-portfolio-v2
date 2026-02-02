@@ -1,12 +1,14 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import { ChatMessage } from '@/types/chat'
 
 export function useChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [isTyping, setIsTyping] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isWarming, setIsWarming] = useState(false)
+  const hasPrewarmed = useRef(false)
 
   const sendMessage = useCallback(
     async (content: string) => {
@@ -87,11 +89,28 @@ export function useChat() {
     setError(null)
   }, [])
 
+  // Prewarm the AI container when chat is opened
+  const prewarm = useCallback(async () => {
+    if (hasPrewarmed.current) return
+    hasPrewarmed.current = true
+    setIsWarming(true)
+
+    try {
+      await fetch('/api/chat/warm', { method: 'GET' })
+    } catch {
+      // Silently fail - prewarming is best effort
+    } finally {
+      setIsWarming(false)
+    }
+  }, [])
+
   return {
     messages,
     isTyping,
+    isWarming,
     error,
     sendMessage,
     clearMessages,
+    prewarm,
   }
 }
