@@ -1,0 +1,8 @@
+# Fine-tuning models (too large for Vercel)
+fine-tuning/models/
+fine-tuning/data/
+
+# Other large/unnecessary files
+*.gguf
+*.safetensors
+.next/cache/
