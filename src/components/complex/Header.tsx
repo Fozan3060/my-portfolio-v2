@@ -20,21 +20,25 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // The menu renders outside <header>: the header's backdrop blur would otherwise become the
+  // containing block for the menu's fixed positioning and squeeze it into the header bar.
   return (
-    <header
-      className={`fixed w-full z-50 transition-colors duration-300 ${
-        isScrolled ? 'bg-background shadow-md' : ''
-      }`}
-    >
-      <Wrapper>
-        <div className='flex justify-between items-center uppercase py-5'>
-          <Logo classname='h-16 w-20' src='/assets/logo.png' />
-          <NavigationLinks className='xl:flex hidden' />
-          <ActionPanel setOpenMobileNavbar={setOpenMobileNavbar} />
-        </div>
-      </Wrapper>
+    <>
+      <header
+        className={`fixed w-full z-50 border-b transition-colors duration-300 ${
+          isScrolled ? 'border-white/5 bg-background/80 backdrop-blur-md' : 'border-transparent'
+        }`}
+      >
+        <Wrapper>
+          <div className='flex justify-between items-center py-5'>
+            <Logo classname='h-16 w-20' src='/assets/logo.png' />
+            <NavigationLinks className='xl:flex hidden gap-7' />
+            <ActionPanel setOpenMobileNavbar={setOpenMobileNavbar} />
+          </div>
+        </Wrapper>
+      </header>
       <MobileNavBar open={openMobileNavbar} setOpen={setOpenMobileNavbar} />
-    </header>
+    </>
   );
 };
 

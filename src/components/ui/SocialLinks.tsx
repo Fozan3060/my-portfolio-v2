@@ -1,9 +1,10 @@
 import React from 'react'
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa'
+import { GITHUB_URL, LINKEDIN_URL } from '@/lib/contact'
 
 const sociallinks = [
-  { icon: FaLinkedinIn, url: 'https://www.linkedin.com/in/fozan-javaid/' },
-  { icon: FaGithub, url: 'https://github.com/Fozan3060' }
+  { icon: FaLinkedinIn, url: LINKEDIN_URL },
+  { icon: FaGithub, url: GITHUB_URL }
 ]
 
 const SocialLinks = () => {

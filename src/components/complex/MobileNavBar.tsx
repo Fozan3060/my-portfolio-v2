@@ -1,49 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { LuX } from 'react-icons/lu'
 import Button from '../ui/Button'
 import Logo from '../ui/Logo'
 import NavigationLinks from '../compound/NavigationLinks'
+import DirectionalButton from '../compound/DirectionalButton'
+import SocialLinks from '../ui/SocialLinks'
+import { scrollToContact } from '../compound/ActionPanel'
 
 interface MobileNavBarProps {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const overlayVariants = {
-  hidden: { opacity: 0, x: '-100%' },
-  visible: { opacity: 0.5, x: 0, transition: { duration: 0.3 } },
-  exit: { opacity: 0, x: '-100%', transition: { duration: 0.2 } }
-} as const
-
-const sidebarVariants = {
-  hidden: { x: '-100%' },
-  visible: {
-    x: 0,
-    transition: {
-      type: 'spring' as const,
-      stiffness: 130,
-      damping: 20,
-      mass: 0.9,
-      velocity: 1.5
-    }
-  },
-  exit: {
-    x: '-100%',
-    transition: {
-      type: 'spring' as const,
-      stiffness: 130,
-      damping: 20,
-      mass: 0.9
-    }
-  }
-}
-
 const MobileNavBar: React.FC<MobileNavBarProps> = ({ open, setOpen }) => {
-  const [showSidebar, setShowSidebar] = useState(false)
-
-  useEffect(() => {
-    if (!open) setShowSidebar(false)
-  }, [open])
+  const close = () => setOpen(false)
 
   return (
     <AnimatePresence>
@@ -51,41 +22,53 @@ const MobileNavBar: React.FC<MobileNavBarProps> = ({ open, setOpen }) => {
         <>
           <motion.div
             key='overlay'
-            initial='hidden'
-            animate='visible'
-            exit='exit'
-            variants={overlayVariants}
-            className='fixed inset-0 z-30 pointer-events-auto bg-black bg-opacity-20'
-            onClick={() => setOpen(false)}
-            onAnimationComplete={() => setShowSidebar(true)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className='fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm'
+            onClick={close}
           />
-          {showSidebar && (
-            <motion.div
-              key='sidebar'
-              initial='hidden'
-              animate='visible'
-              exit='exit'
-              variants={sidebarVariants}
-              className='fixed top-0 left-0 h-full w-80 bg-background3 z-50 shadow-lg'
-            >
-              <div className='flex justify-between items-center px-4 pt-6'>
-                <Logo classname='h-16 w-20' src='/assets/logo.png' />
-                <Button
-                  className='cursor-pointer text-3xl  text-white'
-                  onClick={() => setOpen(false)}
-                >
-                  &times;
-                </Button>
+          <motion.aside
+            key='sidebar'
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{ type: 'spring', stiffness: 260, damping: 30 }}
+            className='fixed left-0 top-0 z-[70] flex h-full w-[85%] max-w-xs flex-col border-r border-white/5 bg-background2'
+          >
+            <div className='flex items-center justify-between px-6 pt-6'>
+              <Logo classname='h-14 w-16' src='/assets/logo.png' />
+              <Button
+                ariaLabel='Close menu'
+                icon={<LuX size={22} />}
+                className='flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-white/10 text-white transition-colors duration-300 hover:border-custom-orange/40 hover:text-custom-orange'
+                onClick={close}
+              />
+            </div>
+
+            <div className='flex-1 overflow-y-auto px-6 py-8'>
+              <NavigationLinks
+                className='flex flex-col gap-0'
+                LinksClassName='border-b border-white/5 py-3.5 text-lg'
+                onNavigate={close}
+              />
+            </div>
+
+            <div className='space-y-5 border-t border-white/5 px-6 py-6'>
+              <DirectionalButton
+                label="Let's Talk"
+                className='w-full'
+                onClick={() => {
+                  close()
+                  scrollToContact()
+                }}
+              />
+              <div className='flex gap-3'>
+                <SocialLinks />
               </div>
-              <div className='p-8'>
-                <NavigationLinks
-                  className='flex flex-col capitalize'
-                  LinksClassName='border-b-1 border-border pb-2'
-                  onNavigate={() => setOpen(false)}
-                />
-              </div>
-            </motion.div>
-          )}
+            </div>
+          </motion.aside>
         </>
       )}
     </AnimatePresence>

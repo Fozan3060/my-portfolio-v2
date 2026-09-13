@@ -9,13 +9,26 @@
   --color-text1: rgb(153, 153, 153);
   --color-text2: #999999;
   --color-text3: #dddddd;
-  --font-sora: "font", sora;
   --breakpoint-small_phone: 350px;
   --breakpoint-medium_phone: 400px;
   --breakpoint-semi_lg: 1150px;
   --breakpoint-semi_md: 990px;
   --gradient-card-bg: linear-gradient(145deg, #1e2024, #23272b);
   --shadow-neumorphic: 10px 10px 19px #1c1e22, -10px -10px 19px #262a2e;
+}
+
+@theme inline {
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  }
 }
 
 .directional-overlay {
@@ -38,6 +51,14 @@
 
 .directional-overlay:hover::before {
   transform: translateX(0%);
+}
+
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: center;
 }
 
 .herosection {
@@ -106,41 +127,6 @@
 }
 
 
-.vertical-timeline.vertical-timeline--two-columns:before {
-  left: 0% !important;
-  margin-left: 0 !important;
-  border: 1px solid #121212;
-}
-
-.vertical-timeline--two-columns .vertical-timeline-element-icon {
-  left: 0% !important;
-  height: 1rem !important;
-  width: 1rem !important;
-  margin-left: -6px !important;
-  /* position: absolute !important; */
-}
-
-.vertical-timeline--two-columns .vertical-timeline-element-content-arrow {
-
-visibility: hidden !important;  
-  
-}
-
-.vertical-timeline-element-content {
-  margin-left: 3rem !important;
-   width: fit-content !important;
-}
-
-.vertical-timeline--two-columns .vertical-timeline-element-content .vertical-timeline-element-date {
-  display: inline-block !important;
-  position: relative !important;
-  left: 0% !important;
-}
-
-.vertical-timeline-element>span:first-of-type {
-  background-color: #171717 !important;
-}
-
 ::-webkit-scrollbar {
   width: 12px;
 }
@@ -157,4 +143,133 @@ visibility: hidden !important;
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: #fb923c; 
+}
+/* ---------- Preloader ---------- */
+
+.preloader {
+  /* Failsafe: if the page never hydrates, don't keep the site hidden behind the curtain. */
+  animation: preloader-failsafe 0s linear 10s forwards;
+  transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+}
+
+.preloader::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff9776 50%, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.preloader-exit {
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+.preloader-exit::after {
+  opacity: 1;
+}
+
+.preloader-grid {
+  mask-image: radial-gradient(ellipse at 50% 42%, #000 20%, transparent 70%);
+  animation: preloader-fade-in 1.2s ease-out both;
+}
+
+.preloader-content {
+  transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.preloader-exit .preloader-content {
+  opacity: 0;
+  transform: translateY(-48px);
+}
+
+.preloader-logo {
+  animation: preloader-logo-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.preloader-glow {
+  animation: preloader-glow 2.6s ease-in-out 0.6s infinite;
+}
+
+.preloader-letter {
+  animation: preloader-letter-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.preloader-role {
+  animation: preloader-role-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
+}
+
+@keyframes preloader-failsafe {
+  to {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@keyframes preloader-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes preloader-logo-in {
+  from {
+    opacity: 0;
+    transform: scale(0.82);
+    filter: blur(10px);
+  }
+}
+
+@keyframes preloader-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes preloader-letter-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.9em);
+    filter: blur(4px);
+  }
+}
+
+@keyframes preloader-role-in {
+  from {
+    opacity: 0;
+    letter-spacing: 0.1em;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.45em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    transition: opacity 0.3s ease;
+  }
+
+  .preloader-exit {
+    transform: none;
+    opacity: 0;
+  }
+
+  .preloader *,
+  .preloader-content {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
 }

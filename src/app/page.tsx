@@ -5,7 +5,6 @@ import Header from '@/components/complex/Header'
 import Herosection from '@/components/complex/Herosection'
 import Portfolio from '@/components/complex/Portfolio'
 import Resume from '@/components/complex/Resume'
-import Reviews from '@/components/complex/Reviews'
 import Services from '@/components/complex/Services'
 import Skills from '@/components/complex/Skills'
 import Personalnfo from '@/components/compound/Personalnfo'
@@ -19,7 +18,6 @@ export default function Home () {
       <Personalnfo />
       <Services />
       <Portfolio />
-      <Reviews />
       <Resume />
       <Skills />
       <ContactUs />

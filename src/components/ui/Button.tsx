@@ -10,6 +10,7 @@ type ButtonProps = {
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   children?: ReactNode
+  ariaLabel?: string
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,6 +21,7 @@ const Button: React.FC<ButtonProps> = ({
   type = 'button',
   disabled = false,
   children,
+  ariaLabel,
 }) => {
   return (
     <button
@@ -27,6 +29,7 @@ const Button: React.FC<ButtonProps> = ({
       className={className}
       type={type}
       disabled={disabled}
+      aria-label={ariaLabel}
     >
       {icon}
       {label || children}

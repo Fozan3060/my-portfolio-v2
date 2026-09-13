@@ -7,8 +7,8 @@ import RightBanner from '../compound/RightBanner'
 
 const Herosection = () => {
   return (
-    <div className='w-full pb-40 2xl:h-screen pt-52 2xl:pt-60 sm:pt-48 overflow-hidden z-0 border relative herosection'>
-      <Wrapper sectionId='home'>
+    <div className='herosection relative z-0 w-full overflow-hidden pt-52 pb-40 sm:pt-48 2xl:flex 2xl:min-h-screen 2xl:flex-col 2xl:justify-center 2xl:pt-32 2xl:pb-16'>
+      <Wrapper sectionId='home' className='min-[1440px]:relative'>
         <LeftBanner/>
         <MiddleBanner/>
         <RightBanner/>
