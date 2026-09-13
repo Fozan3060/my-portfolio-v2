@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { IoSend } from 'react-icons/io5'
+import { MAX_MESSAGE_CHARS } from '@/lib/chat/limits'
 
 type ChatInputProps = {
   onSend: (message: string) => void
@@ -34,6 +35,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSend, disabled }) => {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type a message..."
+          maxLength={MAX_MESSAGE_CHARS}
           disabled={disabled}
           rows={1}
           className="flex-1 bg-background2 text-white placeholder:text-text2

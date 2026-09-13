@@ -9,8 +9,9 @@ interface MobileNavbarBtnProps {
 const MobileNavbarBtn: React.FC<MobileNavbarBtnProps> = ({ setOpenMobileNavbar }) => {
   return (
     <Button
-      icon={<AiOutlineMenu fontSize={30} />}
-      className='py-3 px-3 rounded-lg bg-white transition-colors duration-500 hover:bg-custom-orange  hover:text-background cursor-pointer'
+      icon={<AiOutlineMenu fontSize={26} />}
+      ariaLabel='Open menu'
+      className='xl:hidden flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white transition-colors duration-300 hover:border-custom-orange/40 hover:text-custom-orange cursor-pointer'
       onClick={() => setOpenMobileNavbar(true)}
     />
   )

@@ -6,25 +6,22 @@ import DirectionalButton from './DirectionalButton'
 import BannerImage from './BannerImage'
 import useInView from '@/hooks/useInView'
 import { SanityHero } from '@/types/sanity'
-import { getHeroData, getPortfolioProjects } from '../../../queries'
-import { SiNextdotjs, SiTypescript, SiVercel } from 'react-icons/si'
-import { motion, useSpring, useTransform } from 'framer-motion'
+import { getHeroData } from '../../../queries'
+import { SiFastapi, SiNextdotjs, SiPostgresql, SiRailway, SiTypescript, SiVercel } from 'react-icons/si'
+import { LuArrowUpRight, LuSparkles } from 'react-icons/lu'
+import { openChat } from '@/lib/chatEvents'
+import ToolChip, { Tool } from '../ui/ToolChip'
 
-// Animated counter component for stats
-const AnimatedStat = ({ value, inView }: { value: number; inView: boolean }) => {
-  const springValue = useSpring(0, { stiffness: 100, damping: 20 })
-  const displayedValue = useTransform(springValue, (latest) => Math.round(latest))
+const coreStack: Tool[] = [
+  { name: 'Next.js', icon: SiNextdotjs },
+  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+  { name: 'FastAPI', icon: SiFastapi, color: '#009688' },
+  { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
+  { name: 'Vercel', icon: SiVercel },
+  { name: 'Railway', icon: SiRailway }
+]
 
-  useEffect(() => {
-    if (inView) {
-      springValue.set(value)
-    }
-  }, [inView, value, springValue])
-
-  return <motion.span>{displayedValue}</motion.span>
-}
-
-const roles = ['AI/LLM Developer', 'AI Full Stack Engineer', 'Problem Solver']
+const roles = ['Full-Stack AI Engineer', 'AI/LLM Developer', 'Problem Solver']
 
 const MiddleBanner = () => {
   const [herodata, setHeroData] = useState<SanityHero>()
@@ -32,7 +29,6 @@ const MiddleBanner = () => {
 
   useEffect(() => {
     getHeroData().then(setHeroData)
-    console.log(getPortfolioProjects())
   }, [])
 
   // Rotating titles effect
@@ -42,11 +38,13 @@ const MiddleBanner = () => {
     }, 3000)
     return () => clearInterval(interval)
   }, [])
-  const { ref: ref1, isInView: inView1 } = useInView<HTMLHeadingElement>(
+  // Observe the clipping wrappers, not the headings: a heading starts shifted down inside
+  // its overflow-hidden wrapper, so on short screens too little of it is visible to trigger.
+  const { ref: ref1, isInView: inView1 } = useInView<HTMLDivElement>(
     0.2,
     true
   )
-  const { ref: ref2, isInView: inView2 } = useInView<HTMLHeadingElement>(
+  const { ref: ref2, isInView: inView2 } = useInView<HTMLDivElement>(
     0.2,
     true
   )
@@ -54,20 +52,18 @@ const MiddleBanner = () => {
   return (
     <div className='flex items-center justify-center'>
       <div className='flex-col w-full md:w-[650px]'>
-        <div className='text-7xl sm:text-8xl md:text-6xl lg:text-8xl xl:text-9xl 2xl:text-[9rem] font-bold tracking-wider text-white'>
-          <div className='overflow-hidden h-fit'>
+        <div className='text-6xl min-[360px]:text-7xl sm:text-8xl md:text-6xl lg:text-8xl xl:text-9xl 2xl:text-[length:clamp(6.5rem,14vh,9rem)] font-bold whitespace-nowrap text-white'>
+          <div ref={ref1} className='overflow-hidden h-fit'>
             <h1
-              ref={ref1}
               className={`inline-block transition-all duration-700 ease-out h-fit ${
                 inView1 ? 'translate-y-0 opacity-100' : '2xl:translate-y-24 translate-y-10 opacity-0'
               }`}
             >
-              Hay&apos; i m
+              Hey, I&apos;m
             </h1>
           </div>
-          <div className='overflow-hidden h-fit'>
+          <div ref={ref2} className='overflow-hidden h-fit'>
             <h1
-              ref={ref2}
               className={`inline-block transition-all duration-700 ease-out delay-150 ${
                 inView2 ? 'translate-y-0 opacity-100' : '2xl:translate-y-24 translate-y-10 opacity-0'
               }`}
@@ -80,7 +76,7 @@ const MiddleBanner = () => {
         {/* Rotating Title */}
         <div className='mt-3 h-8'>
           <p
-            className={`text-custom-orange text-lg sm:text-xl font-semibold tracking-wide transition-all duration-700 ease-out delay-300 ${
+            className={`text-custom-orange text-lg sm:text-xl font-semibold transition-all duration-700 ease-out delay-300 ${
               inView1 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             }`}
           >
@@ -91,7 +87,7 @@ const MiddleBanner = () => {
         {/* Description - fixed height to prevent layout shift */}
         <div className='min-h-[80px] mt-4'>
           <p
-            className={`text-white text-lg 2xl:text-xl font-medium tracking-wider max-w-2xl transition-all duration-700 ease-out delay-500 ${
+            className={`text-text3 text-lg leading-relaxed 2xl:text-xl max-w-2xl transition-all duration-700 ease-out delay-500 ${
               inView1 && herodata?.description ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
             }`}
           >
@@ -115,70 +111,49 @@ const MiddleBanner = () => {
           />
         </div>
 
-        {/* Quick Stats */}
+        {/* The numbers live in About Me; the hero points visitors at the assistant instead. */}
         <div
-          className={`mt-10 transition-all duration-700 ease-out ${
+          className={`mt-8 2xl:mt-6 transition-all duration-700 ease-out ${
             inView1 ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           }`}
           style={{ transitionDelay: '850ms' }}
         >
-          <div className='flex flex-wrap items-center gap-2 sm:gap-6 text-white/80'>
-            <div className='flex items-center gap-1 sm:gap-2'>
-              <span className='text-lg sm:text-2xl font-bold text-custom-orange'>
-                <AnimatedStat value={4} inView={inView1} />+
+          <button
+            type='button'
+            onClick={openChat}
+            className='group flex w-full max-w-md cursor-pointer items-center gap-3 sm:gap-4 rounded-2xl border border-white/10 bg-background2/60 p-3 pr-4 text-left backdrop-blur-sm transition-colors duration-300 hover:border-custom-orange/40 hover:bg-background2'
+          >
+            <span className='relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-custom-orange/10 text-custom-orange ring-1 ring-custom-orange/25'>
+              <LuSparkles size={20} />
+              <span className='absolute -right-0.5 -top-0.5 flex h-2.5 w-2.5'>
+                <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-custom-orange opacity-60 motion-reduce:animate-none' />
+                <span className='relative inline-flex h-2.5 w-2.5 rounded-full bg-custom-orange' />
               </span>
-              <span className='text-xs sm:text-sm'>Years Experience</span>
-            </div>
-            <span className='hidden sm:block w-1 h-1 rounded-full bg-white/40'></span>
-            <div className='flex items-center gap-1 sm:gap-2'>
-              <span className='text-lg sm:text-2xl font-bold text-custom-orange'>
-                <AnimatedStat value={50} inView={inView1} />+
-              </span>
-              <span className='text-xs sm:text-sm'>Clients</span>
-            </div>
-            <span className='hidden sm:block w-1 h-1 rounded-full bg-white/40'></span>
-            <div className='flex items-center gap-1 sm:gap-2'>
-              <span className='text-lg sm:text-2xl font-bold text-custom-orange'>
-                <AnimatedStat value={20} inView={inView1} />+
-              </span>
-              <span className='text-xs sm:text-sm'>Projects</span>
-            </div>
-          </div>
+            </span>
+            <span className='min-w-0 flex-1'>
+              <span className='block text-sm font-semibold text-white min-[400px]:text-base'>Ask my AI assistant about me</span>
+              <span className='block text-xs text-text2 sm:text-sm'>A Llama 3.1 8B I fine-tuned on my own profile</span>
+            </span>
+            <LuArrowUpRight
+              size={20}
+              className='shrink-0 text-text2 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-custom-orange'
+            />
+          </button>
         </div>
 
-        {/* Tech Stack with Icons */}
+        {/* Core stack */}
         <div
           className={`mt-6 transition-all duration-700 ease-out ${
             inView1 ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           }`}
           style={{ transitionDelay: '1000ms' }}
         >
-          <p className='text-text2 text-xs mb-3 tracking-wider uppercase'>Tech Stack</p>
-          <div className='flex flex-wrap items-center gap-2 sm:gap-4'>
-            {[
-              { name: 'Next.js', IconComponent: SiNextdotjs },
-              { name: 'TypeScript', IconComponent: SiTypescript, color: '#3178C6' },
-              { name: 'LLM/RAG', icon: '🧠' },
-              { name: 'Vercel', IconComponent: SiVercel },
-              { name: 'Docker', icon: '🐳' },
-              { name: 'Stripe', icon: '💳' },
-              { name: 'OAuth', icon: '🔐' },
-              { name: 'Playwright', icon: '🎭' }
-            ].map((tech) => (
-              <div
-                key={tech.name}
-                className='group flex items-center gap-2 px-3 py-2 rounded-lg bg-background2/60 border border-border/50 hover:border-custom-orange/50 hover:bg-background2 transition-all duration-300 cursor-default'
-                title={tech.name}
-              >
-                {tech.IconComponent ? (
-                  <tech.IconComponent className='w-5 h-5' style={{ color: tech.color || 'white' }} />
-                ) : (
-                  <span className='text-lg'>{tech.icon}</span>
-                )}
-                <span className='text-sm text-white/80 group-hover:text-white'>{tech.name}</span>
-              </div>
+          <p className='text-text2 text-xs mb-3 tracking-wider uppercase'>Core stack</p>
+          <ul className='grid w-fit grid-cols-2 gap-2 sm:grid-cols-3'>
+            {coreStack.map((tool) => (
+              <ToolChip key={tool.name} tool={tool} />
             ))}
-          </div>
+          </ul>
         </div>
       </div>
       <BannerImage />

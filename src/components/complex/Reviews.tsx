@@ -13,7 +13,7 @@ const Reviews = () => {
           <Logo src="/assets/Logo2.png" classname="h-16 w-20 m-auto" />
           <SectionHeading heading='Reviews' />
           <div>
-            <h2 className='text-center text-6xl text-white font-bold mb-5'>Clients Feedback</h2>
+            <h2 className='text-center text-5xl sm:text-6xl text-white font-bold mb-5'>Clients Feedback</h2>
           </div>
           <ReviewsSlider />
         </SectionWrapper>

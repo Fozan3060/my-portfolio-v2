@@ -195,6 +195,35 @@ ollama run fozan-assistant "Who is Fozan?"
 
 ---
 
+### Run the chatbot on an 8 GB GPU (Ollama)
+
+This is the path that works on an 8 GB card such as the RTX 5060. The Q8_0 GGUF above is 8.5 GB and doesn't fit.
+
+1. **Download the weights** from Hugging Face into the gitignored `models/` folder:
+   ```bash
+   mkdir -p models/fozan-assistant-hf && cd models/fozan-assistant-hf
+   for f in config.json generation_config.json special_tokens_map.json tokenizer.json tokenizer_config.json chat_template.jinja model.safetensors; do
+     curl -fL -C - -o "$f" "https://huggingface.co/fozan3060/fozan-assistant/resolve/main/$f"
+   done
+   ```
+2. **Patch the RoPE settings.** transformers 5 moved `rope_theta` and `rope_scaling` into `rope_parameters`. Ollama only reads the old keys, and without them it builds the model with the wrong position encoding: answers get less accurate and long prompts turn into garbage.
+   ```bash
+   python3 -c "import json;p='config.json';c=json.load(open(p));r=c['rope_parameters'];c['rope_theta']=r['rope_theta'];c['rope_scaling']={k:v for k,v in r.items() if k!='rope_theta'};json.dump(c,open(p,'w'),indent=2)"
+   cd ../..
+   ```
+3. **Build and check the model:**
+   ```bash
+   ollama create fozan-assistant -q q4_K_M -f Modelfile
+   ollama show fozan-assistant --verbose | grep -E "rope.freq_base|rope_freqs"   # expect 500000 and rope_freqs.weight
+   ```
+4. **Start Ollama** with flash attention and an 8-bit KV cache, otherwise the 16K context the app uses spills onto the CPU. After a reboot, wait until `nvidia-smi` lists the GPU first.
+   ```bash
+   OLLAMA_FLASH_ATTENTION=1 OLLAMA_KV_CACHE_TYPE=q8_0 ollama serve
+   ```
+5. **Point the app at it** in `.env.local` with `OLLAMA_MODEL=fozan-assistant`, and leave `USE_MODAL_AI` unset.
+
+The app sends all of `dataset.jsonl` with every question as a knowledge base (fine-tuning alone recalled only 44% of facts). To change what the bot knows, edit the dataset; no restart or rebuild is needed.
+
 ### Phase 3: Production Deployment (Modal) ✅ Completed
 
 #### Why Modal?

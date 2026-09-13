@@ -7,13 +7,16 @@ export interface ChatProvider {
   }): Promise<ReadableStream<Uint8Array>>
 }
 
-export async function getAIProvider(): Promise<ChatProvider> {
+export function usesModal(): boolean {
   const isProduction = process.env.NODE_ENV === 'production'
   const forceLocal = process.env.FORCE_LOCAL_AI === 'true'
   const useModal = process.env.USE_MODAL_AI === 'true'
+  return (isProduction || useModal) && !forceLocal
+}
 
+export async function getAIProvider(): Promise<ChatProvider> {
   // Use Modal in production (fine-tuned model)
-  if ((isProduction || useModal) && !forceLocal) {
+  if (usesModal()) {
     const { ModalProvider } = await import('./modal')
     return new ModalProvider()
   }

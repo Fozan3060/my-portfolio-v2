@@ -30,8 +30,6 @@ A modern, feature-rich portfolio website for Fozan Javaid built with Next.js 15,
 | React Icons | 5.5.0 | Icon components |
 | React Modal | 3.16.3 | Modal component library |
 | Swiper | 11.2.8 | Touch slider/carousel |
-| React Parallax Tilt | 1.7.297 | Parallax effect library |
-| React Vertical Timeline | 3.5.3 | Timeline component |
 | Styled Components | 6.1.18 | CSS-in-JS styling |
 | React Intersection Observer | 9.16.0 | Intersection observer hook |
 
@@ -67,23 +65,16 @@ my-portfolio-v2/
 │   │   │   ├── Logo.tsx              # Logo component
 │   │   │   ├── SectionHeading.tsx    # Section title component
 │   │   │   ├── SectionWrapper.tsx    # Section padding wrapper
-│   │   │   ├── CustomChekmark.tsx    # Checkmark UI element
 │   │   │   ├── SocialLinks.tsx       # Social media links
-│   │   │   └── PersonalInfoItem.tsx  # Personal info display item
 │   │   │
 │   │   ├── compound/                 # Composite/reusable components
-│   │   │   ├── SkillCard.tsx         # Individual skill with animated percentage
-│   │   │   ├── ServiceCard.tsx       # Service offering card
 │   │   │   ├── ReviewsSlider.tsx     # Swiper-based reviews carousel
-│   │   │   ├── FormEmail.tsx         # Email contact form with EmailJS
-│   │   │   ├── FormBanner.tsx        # Contact form banner section
+│   │   │   ├── ContactForm.tsx       # Contact form (validation, EmailJS, inline status)
 │   │   │   ├── PortfolioModal.tsx    # Modal for project details
 │   │   │   ├── DirectionalButton.tsx # Interactive button with directional movement
 │   │   │   ├── HireMeBtn.tsx         # CTA button that scrolls to contact
 │   │   │   ├── BannerImage.tsx       # Hero banner image with mouse parallax
 │   │   │   ├── NavigationLinks.tsx   # Nav links with active section detection
-│   │   │   ├── ResumeCard.tsx        # Individual resume/experience entry
-│   │   │   ├── StatItem.tsx          # Statistics display item
 │   │   │   ├── Modal.tsx             # Reusable modal component
 │   │   │   ├── VerticalText.tsx      # Vertical text component
 │   │   │   ├── MobileNavbarBtn.tsx   # Mobile menu button
@@ -127,7 +118,6 @@ my-portfolio-v2/
 ├── public/
 │   └── assets/                       # Static assets (images, icons, SVGs)
 │
-├── Data.ts                           # Static skills data (10 skills with icons)
 ├── queries.ts                        # Sanity GROQ queries
 ├── client.ts                         # Sanity client initialization
 ├── sanity.config.ts                  # Sanity Studio configuration
@@ -215,7 +205,7 @@ Navigation uses IntersectionObserver API for active section detection and smooth
 ## EmailJS Integration
 
 ### Setup Location
-`src/components/compound/FormEmail.tsx`
+`src/components/compound/ContactForm.tsx` (contact details live in `src/lib/contact.ts`)
 
 ### Environment Variables Required
 ```
@@ -285,11 +275,8 @@ const { ref, isInView } = useInView({ threshold: 0.3, once: true });
 
 ## Static Data
 
-### Skills Data (`Data.ts`)
-Array of 10 skills with:
-- `name`: Skill name (React, Next, TypeScript, Node.js, AWS, Sass, Express, Cypress, MongoDB, Tailwind)
-- `value`: Proficiency percentage (95%)
-- `icon`: SVG icon path
+### Skills Data
+Defined inline in `src/components/complex/Skills.tsx`: a featured AI & LLM card (tools plus the real-time voice pipeline) and categories (Frontend, Backend, Databases, Cloud & DevOps, Mobile, Payments, Testing). Each tool has a react-icons icon, an optional brand colour and a `core` flag for the production stack.
 
 ---
 
@@ -360,11 +347,10 @@ NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=<your-emailjs-public-key>
 | Global styles | `src/app/globals.css` |
 | Header/Navigation | `src/components/complex/Header.tsx` |
 | Portfolio grid | `src/components/complex/Portfolio.tsx` |
-| Contact form | `src/components/compound/FormEmail.tsx` |
+| Contact form | `src/components/compound/ContactForm.tsx` |
 | Sanity queries | `queries.ts` |
 | Sanity client | `client.ts` |
 | Type definitions | `src/types/types.ts` |
-| Skills data | `Data.ts` |
 | Custom hooks | `src/hooks/useInView.tsx` |
 | Sanity schemas | `src/sanity/schemaTypes/` |
 

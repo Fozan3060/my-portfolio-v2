@@ -5,21 +5,21 @@ import Header from '@/components/complex/Header'
 import Herosection from '@/components/complex/Herosection'
 import Portfolio from '@/components/complex/Portfolio'
 import Resume from '@/components/complex/Resume'
-import Reviews from '@/components/complex/Reviews'
 import Services from '@/components/complex/Services'
 import Skills from '@/components/complex/Skills'
 import Personalnfo from '@/components/compound/Personalnfo'
+import { personJsonLd } from '@/lib/site'
 
 export default function Home () {
   return (
     <main>
+      <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
       <Header />
       <Herosection />
       <AboutMe />
       <Personalnfo />
       <Services />
       <Portfolio />
-      <Reviews />
       <Resume />
       <Skills />
       <ContactUs />

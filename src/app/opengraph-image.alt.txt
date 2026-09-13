@@ -1,0 +1,1 @@
+Fozan Javaid, Full-Stack AI Engineer, building production AI systems with TypeScript, Next.js, FastAPI and PostgreSQL

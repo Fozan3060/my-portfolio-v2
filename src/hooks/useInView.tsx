@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { whenSiteReady } from '@/lib/siteReady';
 
 function useInView<T extends HTMLElement>(
   threshold = 0.1,
@@ -10,36 +11,40 @@ function useInView<T extends HTMLElement>(
   const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (once && hasAnimated) {
-          return;
-        }
+    const element = ref.current;
+    if (!element) return;
 
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          if (once) {
-            setHasAnimated(true);
-            observer.disconnect();
-          }
-        } else {
-          if (!once && isInView) {
-            setIsInView(false);
-          }
-        }
-      },
-      { threshold }
-    );
+    let observer: IntersectionObserver | undefined;
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    // Start observing only once the preloader lifts, so sections already on screen
+    // (like the hero) play their entrance animation where visitors can see it.
+    const cancel = whenSiteReady(() => {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (once && hasAnimated) {
+            return;
+          }
+
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            if (once) {
+              setHasAnimated(true);
+              observer?.disconnect();
+            }
+          } else {
+            if (!once && isInView) {
+              setIsInView(false);
+            }
+          }
+        },
+        { threshold }
+      );
+      observer.observe(element);
+    });
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-      observer.disconnect();
+      cancel();
+      observer?.disconnect();
     };
   }, [threshold, once, hasAnimated, isInView]);
 

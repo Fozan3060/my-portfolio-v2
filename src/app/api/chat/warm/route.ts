@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { usesModal } from '@/lib/chat/provider'
 
 const MODAL_ENDPOINT =
   process.env.MODAL_ENDPOINT || 'https://fozan3060--fozan-assistant-chat.modal.run'
@@ -12,6 +13,12 @@ const MODAL_ENDPOINT =
  * - External monitoring service
  */
 export async function GET() {
+  // Only the Modal deployment has a container to warm. Pinging it while chatting with the
+  // local model would bill a cloud GPU for nothing.
+  if (!usesModal()) {
+    return NextResponse.json({ status: 'ok', warm: true, message: 'Local model in use, nothing to warm' })
+  }
+
   try {
     const startTime = Date.now()
 

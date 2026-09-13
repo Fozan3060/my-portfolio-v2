@@ -20,7 +20,15 @@ export class ModalProvider implements ChatProvider {
     const history: [string, string][] = []
     let currentMessage = ''
 
-    // Build history from messages (skip system message, Modal has its own)
+    // The deployed Modal app only accepts { message, history } and always injects its own
+    // one-line system prompt. Without the real system prompt the model has no knowledge base
+    // and answers from its fine-tuning memory, so send it as an opening exchange instead.
+    const systemPrompt = messages.find((m) => m.role === 'system')?.content
+    if (systemPrompt) {
+      history.push([systemPrompt, 'Understood. I will follow these rules and answer only from the knowledge base.'])
+    }
+
+    // Build history from the remaining messages
     for (let i = 0; i < messages.length; i++) {
       const msg = messages[i]
       if (msg.role === 'system') continue
