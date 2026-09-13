@@ -31,7 +31,6 @@ A modern, feature-rich portfolio website for Fozan Javaid built with Next.js 15,
 | React Modal | 3.16.3 | Modal component library |
 | Swiper | 11.2.8 | Touch slider/carousel |
 | React Parallax Tilt | 1.7.297 | Parallax effect library |
-| React Vertical Timeline | 3.5.3 | Timeline component |
 | Styled Components | 6.1.18 | CSS-in-JS styling |
 | React Intersection Observer | 9.16.0 | Intersection observer hook |
 
@@ -73,14 +72,12 @@ my-portfolio-v2/
 │   │   ├── compound/                 # Composite/reusable components
 │   │   │   ├── ServiceCard.tsx       # Service offering card
 │   │   │   ├── ReviewsSlider.tsx     # Swiper-based reviews carousel
-│   │   │   ├── FormEmail.tsx         # Email contact form with EmailJS
-│   │   │   ├── FormBanner.tsx        # Contact form banner section
+│   │   │   ├── ContactForm.tsx       # Contact form (validation, EmailJS, inline status)
 │   │   │   ├── PortfolioModal.tsx    # Modal for project details
 │   │   │   ├── DirectionalButton.tsx # Interactive button with directional movement
 │   │   │   ├── HireMeBtn.tsx         # CTA button that scrolls to contact
 │   │   │   ├── BannerImage.tsx       # Hero banner image with mouse parallax
 │   │   │   ├── NavigationLinks.tsx   # Nav links with active section detection
-│   │   │   ├── ResumeCard.tsx        # Individual resume/experience entry
 │   │   │   ├── Modal.tsx             # Reusable modal component
 │   │   │   ├── VerticalText.tsx      # Vertical text component
 │   │   │   ├── MobileNavbarBtn.tsx   # Mobile menu button
@@ -211,7 +208,7 @@ Navigation uses IntersectionObserver API for active section detection and smooth
 ## EmailJS Integration
 
 ### Setup Location
-`src/components/compound/FormEmail.tsx`
+`src/components/compound/ContactForm.tsx` (contact details live in `src/lib/contact.ts`)
 
 ### Environment Variables Required
 ```
@@ -353,7 +350,7 @@ NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=<your-emailjs-public-key>
 | Global styles | `src/app/globals.css` |
 | Header/Navigation | `src/components/complex/Header.tsx` |
 | Portfolio grid | `src/components/complex/Portfolio.tsx` |
-| Contact form | `src/components/compound/FormEmail.tsx` |
+| Contact form | `src/components/compound/ContactForm.tsx` |
 | Sanity queries | `queries.ts` |
 | Sanity client | `client.ts` |
 | Type definitions | `src/types/types.ts` |
