@@ -67,12 +67,10 @@ my-portfolio-v2/
 │   │   │   ├── Logo.tsx              # Logo component
 │   │   │   ├── SectionHeading.tsx    # Section title component
 │   │   │   ├── SectionWrapper.tsx    # Section padding wrapper
-│   │   │   ├── CustomChekmark.tsx    # Checkmark UI element
 │   │   │   ├── SocialLinks.tsx       # Social media links
 │   │   │   └── PersonalInfoItem.tsx  # Personal info display item
 │   │   │
 │   │   ├── compound/                 # Composite/reusable components
-│   │   │   ├── SkillCard.tsx         # Individual skill with animated percentage
 │   │   │   ├── ServiceCard.tsx       # Service offering card
 │   │   │   ├── ReviewsSlider.tsx     # Swiper-based reviews carousel
 │   │   │   ├── FormEmail.tsx         # Email contact form with EmailJS
@@ -83,7 +81,6 @@ my-portfolio-v2/
 │   │   │   ├── BannerImage.tsx       # Hero banner image with mouse parallax
 │   │   │   ├── NavigationLinks.tsx   # Nav links with active section detection
 │   │   │   ├── ResumeCard.tsx        # Individual resume/experience entry
-│   │   │   ├── StatItem.tsx          # Statistics display item
 │   │   │   ├── Modal.tsx             # Reusable modal component
 │   │   │   ├── VerticalText.tsx      # Vertical text component
 │   │   │   ├── MobileNavbarBtn.tsx   # Mobile menu button
@@ -127,7 +124,6 @@ my-portfolio-v2/
 ├── public/
 │   └── assets/                       # Static assets (images, icons, SVGs)
 │
-├── Data.ts                           # Static skills data (10 skills with icons)
 ├── queries.ts                        # Sanity GROQ queries
 ├── client.ts                         # Sanity client initialization
 ├── sanity.config.ts                  # Sanity Studio configuration
@@ -285,11 +281,8 @@ const { ref, isInView } = useInView({ threshold: 0.3, once: true });
 
 ## Static Data
 
-### Skills Data (`Data.ts`)
-Array of 10 skills with:
-- `name`: Skill name (React, Next, TypeScript, Node.js, AWS, Sass, Express, Cypress, MongoDB, Tailwind)
-- `value`: Proficiency percentage (95%)
-- `icon`: SVG icon path
+### Skills Data
+Defined inline in `src/components/complex/Skills.tsx`: a featured AI & LLM card (tools plus the real-time voice pipeline) and categories (Frontend, Backend, Databases, Cloud & DevOps, Mobile, Payments, Testing). Each tool has a react-icons icon, an optional brand colour and a `core` flag for the production stack.
 
 ---
 
@@ -364,7 +357,6 @@ NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=<your-emailjs-public-key>
 | Sanity queries | `queries.ts` |
 | Sanity client | `client.ts` |
 | Type definitions | `src/types/types.ts` |
-| Skills data | `Data.ts` |
 | Custom hooks | `src/hooks/useInView.tsx` |
 | Sanity schemas | `src/sanity/schemaTypes/` |
 
