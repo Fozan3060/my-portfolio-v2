@@ -40,6 +40,8 @@ export function useChat() {
 
         const decoder = new TextDecoder()
         let assistantContent = ''
+        // An SSE event can be split across network chunks; keep the unfinished tail.
+        let pending = ''
 
         // Add placeholder for assistant message
         setMessages((prev) => [...prev, { role: 'assistant', content: '' }])
@@ -48,8 +50,10 @@ export function useChat() {
           const { done, value } = await reader.read()
           if (done) break
 
-          const chunk = decoder.decode(value)
-          const lines = chunk.split('\n').filter((line) => line.startsWith('data: '))
+          pending += decoder.decode(value, { stream: true })
+          const parts = pending.split('\n')
+          pending = parts.pop() ?? ''
+          const lines = parts.filter((line) => line.startsWith('data: '))
 
           for (const line of lines) {
             const data = line.replace('data: ', '')

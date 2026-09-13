@@ -1,7 +1,38 @@
-FROM ./models/merged-model
+# Builds the local chat model from the Hugging Face weights (see README: "Run the chatbot on an 8 GB GPU").
+#   ollama create fozan-assistant -q q4_K_M -f Modelfile
+# TEMPLATE and the stop tokens are required: the weights were exported with transformers 5, which
+# stores the chat template in chat_template.jinja. Ollama ignores that file, and without these
+# lines the model gets a raw prompt with no end-of-turn marker and some replies never end.
+FROM ./models/fozan-assistant-hf
 
+# Matches format_prompt in train.py. Ollama adds the BOS token itself.
+TEMPLATE """{{- if .System }}<|start_header_id|>system<|end_header_id|>
+
+{{ .System }}<|eot_id|>
+{{- end }}
+{{- range $i, $_ := .Messages }}
+{{- $last := eq (len (slice $.Messages $i)) 1 }}
+{{- if eq .Role "user" }}<|start_header_id|>user<|end_header_id|>
+
+{{ .Content }}<|eot_id|>{{ if $last }}<|start_header_id|>assistant<|end_header_id|>
+
+{{ end }}
+{{- else if eq .Role "assistant" }}<|start_header_id|>assistant<|end_header_id|>
+
+{{ .Content }}{{ if not $last }}<|eot_id|>{{ end }}
+{{- end }}
+{{- end }}"""
+
+PARAMETER stop "<|start_header_id|>"
+PARAMETER stop "<|end_header_id|>"
+PARAMETER stop "<|eot_id|>"
+PARAMETER stop "<|end_of_text|>"
+PARAMETER stop "<|eom_id|>"
+
+# Safety defaults; the app overrides num_ctx and num_predict per request (src/lib/chat/limits.ts).
+PARAMETER num_predict 512
+PARAMETER num_ctx 4096
 PARAMETER temperature 0.7
 PARAMETER top_p 0.9
-PARAMETER num_ctx 2048
 
 SYSTEM """You are Fozan's AI assistant on his portfolio website. You help visitors learn about Fozan's skills, experience, and services. Be friendly, professional, and helpful. Keep responses concise but informative."""

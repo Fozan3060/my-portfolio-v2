@@ -1,5 +1,6 @@
 import { ChatMessage } from '@/types/chat'
 import { ChatProvider } from './provider'
+import { MAX_REPLY_TOKENS, NUM_CTX } from './limits'
 
 export class OllamaProvider implements ChatProvider {
   private baseUrl: string
@@ -23,11 +24,12 @@ export class OllamaProvider implements ChatProvider {
         model: this.model,
         messages,
         stream: true,
+        options: { num_ctx: NUM_CTX, num_predict: MAX_REPLY_TOKENS },
       }),
     })
 
     if (!response.ok) {
-      throw new Error(`Ollama error: ${response.statusText}`)
+      throw new Error(`Ollama error: ${response.status} ${await response.text()}`)
     }
 
     if (!response.body) {
@@ -41,31 +43,39 @@ export class OllamaProvider implements ChatProvider {
     const reader = body.getReader()
     const decoder = new TextDecoder()
     const encoder = new TextEncoder()
+    // Ollama sends one JSON object per line, but a network chunk can end mid-line (or
+    // mid-character), so keep the unfinished tail until the next chunk arrives.
+    let pending = ''
+
+    const toEvent = (line: string): Uint8Array | null => {
+      if (!line.trim()) return null
+      try {
+        const content = JSON.parse(line).message?.content
+        return content ? encoder.encode(`data: ${JSON.stringify({ content })}\n\n`) : null
+      } catch {
+        return null
+      }
+    }
 
     return new ReadableStream({
       async pull(controller) {
         const { done, value } = await reader.read()
 
         if (done) {
+          const last = toEvent(pending + decoder.decode())
+          if (last) controller.enqueue(last)
           controller.enqueue(encoder.encode('data: [DONE]\n\n'))
           controller.close()
           return
         }
 
-        const text = decoder.decode(value)
-        const lines = text.split('\n').filter(Boolean)
+        pending += decoder.decode(value, { stream: true })
+        const lines = pending.split('\n')
+        pending = lines.pop() ?? ''
 
         for (const line of lines) {
-          try {
-            const json = JSON.parse(line)
-            if (json.message?.content) {
-              controller.enqueue(
-                encoder.encode(`data: ${JSON.stringify({ content: json.message.content })}\n\n`)
-              )
-            }
-          } catch {
-            // Skip malformed lines
-          }
+          const event = toEvent(line)
+          if (event) controller.enqueue(event)
         }
       },
       cancel() {
