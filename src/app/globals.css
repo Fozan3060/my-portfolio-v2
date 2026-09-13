@@ -40,6 +40,14 @@
   transform: translateX(0%);
 }
 
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: center;
+}
+
 .herosection {
   position: relative;
   width: 100%;
@@ -188,11 +196,6 @@ visibility: hidden !important;
 }
 
 .preloader-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-  background-size: 64px 64px;
-  background-position: center;
   mask-image: radial-gradient(ellipse at 50% 42%, #000 20%, transparent 70%);
   animation: preloader-fade-in 1.2s ease-out both;
 }

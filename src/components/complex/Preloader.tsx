@@ -100,7 +100,7 @@ const Preloader = () => {
       className={`preloader fixed inset-0 z-[100] overflow-hidden bg-background2 ${phase === 'exiting' ? 'preloader-exit' : ''}`}
     >
       <span className='sr-only'>{phase === 'exiting' ? 'Portfolio loaded' : 'Loading portfolio'}</span>
-      <div aria-hidden className='preloader-grid absolute inset-0' />
+      <div aria-hidden className='grid-pattern preloader-grid absolute inset-0' />
       <div aria-hidden className='absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(255,151,118,0.10),transparent_55%)]' />
 
       <div aria-hidden className='preloader-content relative flex h-full flex-col items-center justify-center px-6'>
