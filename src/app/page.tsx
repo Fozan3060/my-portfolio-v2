@@ -8,10 +8,12 @@ import Resume from '@/components/complex/Resume'
 import Services from '@/components/complex/Services'
 import Skills from '@/components/complex/Skills'
 import Personalnfo from '@/components/compound/Personalnfo'
+import { personJsonLd } from '@/lib/site'
 
 export default function Home () {
   return (
     <main>
+      <script type='application/ld+json' dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
       <Header />
       <Herosection />
       <AboutMe />
