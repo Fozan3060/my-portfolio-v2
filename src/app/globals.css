@@ -9,13 +9,26 @@
   --color-text1: rgb(153, 153, 153);
   --color-text2: #999999;
   --color-text3: #dddddd;
-  --font-sora: "font", sora;
   --breakpoint-small_phone: 350px;
   --breakpoint-medium_phone: 400px;
   --breakpoint-semi_lg: 1150px;
   --breakpoint-semi_md: 990px;
   --gradient-card-bg: linear-gradient(145deg, #1e2024, #23272b);
   --shadow-neumorphic: 10px 10px 19px #1c1e22, -10px -10px 19px #262a2e;
+}
+
+@theme inline {
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  }
 }
 
 .directional-overlay {

@@ -52,14 +52,14 @@ const MiddleBanner = () => {
   return (
     <div className='flex items-center justify-center'>
       <div className='flex-col w-full md:w-[650px]'>
-        <div className='text-6xl min-[360px]:text-7xl sm:text-8xl md:text-6xl lg:text-8xl xl:text-9xl 2xl:text-[length:clamp(6.5rem,14vh,9rem)] font-bold tracking-wider whitespace-nowrap text-white'>
+        <div className='text-6xl min-[360px]:text-7xl sm:text-8xl md:text-6xl lg:text-8xl xl:text-9xl 2xl:text-[length:clamp(6.5rem,14vh,9rem)] font-bold whitespace-nowrap text-white'>
           <div ref={ref1} className='overflow-hidden h-fit'>
             <h1
               className={`inline-block transition-all duration-700 ease-out h-fit ${
                 inView1 ? 'translate-y-0 opacity-100' : '2xl:translate-y-24 translate-y-10 opacity-0'
               }`}
             >
-              Hay&apos; i m
+              Hey, I&apos;m
             </h1>
           </div>
           <div ref={ref2} className='overflow-hidden h-fit'>
@@ -76,7 +76,7 @@ const MiddleBanner = () => {
         {/* Rotating Title */}
         <div className='mt-3 h-8'>
           <p
-            className={`text-custom-orange text-lg sm:text-xl font-semibold tracking-wide transition-all duration-700 ease-out delay-300 ${
+            className={`text-custom-orange text-lg sm:text-xl font-semibold transition-all duration-700 ease-out delay-300 ${
               inView1 ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             }`}
           >
@@ -87,7 +87,7 @@ const MiddleBanner = () => {
         {/* Description - fixed height to prevent layout shift */}
         <div className='min-h-[80px] mt-4'>
           <p
-            className={`text-white text-lg 2xl:text-xl font-medium tracking-wider max-w-2xl transition-all duration-700 ease-out delay-500 ${
+            className={`text-text3 text-lg leading-relaxed 2xl:text-xl max-w-2xl transition-all duration-700 ease-out delay-500 ${
               inView1 && herodata?.description ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
             }`}
           >
@@ -149,7 +149,7 @@ const MiddleBanner = () => {
           style={{ transitionDelay: '1000ms' }}
         >
           <p className='text-text2 text-xs mb-3 tracking-wider uppercase'>Core stack</p>
-          <ul className='flex flex-wrap items-center gap-2'>
+          <ul className='grid w-fit grid-cols-2 gap-2 sm:grid-cols-3'>
             {coreStack.map((tool) => (
               <ToolChip key={tool.name} tool={tool} />
             ))}

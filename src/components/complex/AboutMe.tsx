@@ -146,7 +146,6 @@ const AboutMe = () => {
                 <div className='relative'>
                   <span className='inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-text3'>
                     <span className='relative flex h-2 w-2'>
-                      <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-custom-orange opacity-60 motion-reduce:animate-none' />
                       <span className='relative inline-flex h-2 w-2 rounded-full bg-custom-orange' />
                     </span>
                     Right now
@@ -175,7 +174,7 @@ const AboutMe = () => {
                 <div key={label} {...reveal(panelInView, 150 + idx * 90)}>
                   <div className='group h-full rounded-2xl border border-white/5 bg-gradient-to-br from-[#1A1A1A] to-[#212121] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-custom-orange/30 sm:p-6'>
                     <div className='flex items-start justify-between gap-2'>
-                      <p className='whitespace-nowrap text-3xl font-bold tabular-nums text-white min-[400px]:text-4xl sm:text-5xl lg:text-4xl xl:text-5xl'>
+                      <p className='whitespace-nowrap font-display text-3xl font-bold tabular-nums text-white min-[400px]:text-4xl sm:text-5xl lg:text-4xl xl:text-5xl'>
                         <CountUp value={value} start={panelInView} />
                         <span className='text-custom-orange'>+</span>
                       </p>
