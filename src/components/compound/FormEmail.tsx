@@ -86,10 +86,10 @@ const FormEmail: React.FC = () => {
         boxShadow:
           ' 0px 0px 12px rgba(255, 255, 255, 0.05),  0px 0px 8px rgba(0, 0, 0, 0.18)      '
       }}
-      className='bg-background mx-auto xl:mx-0 w-full p-8 sm:w-xl lg:w-[40rem] rounded-2xl'
+      className='bg-background mx-auto xl:mx-0 w-full p-6 sm:p-8 sm:w-xl lg:w-[40rem] rounded-2xl'
     >
       <p className='text-custom-orange text-xl mb-2 uppercase'>Get in touch</p>
-      <h3 className='text-white text-6xl font-extrabold'>Contact.</h3>
+      <h3 className='text-white text-5xl sm:text-6xl font-extrabold'>Contact.</h3>
 
       <form
         ref={formRef}
@@ -104,7 +104,7 @@ const FormEmail: React.FC = () => {
             value={form.name}
             onChange={handleChange}
             placeholder="What's your good name?"
-            className='bg-background2 py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+            className='bg-background2 py-4 px-4 sm:px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
           />
         </label>
 
@@ -116,7 +116,7 @@ const FormEmail: React.FC = () => {
             value={form.email}
             onChange={handleChange}
             placeholder="What's your web address?"
-            className='bg-background2 py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+            className='bg-background2 py-4 px-4 sm:px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
           />
         </label>
 
@@ -128,10 +128,10 @@ const FormEmail: React.FC = () => {
             value={form.message}
             onChange={handleChange}
             placeholder='What you want to say?'
-            className='bg-background2 py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+            className='bg-background2 py-4 px-4 sm:px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
           />
         </label>
-        <DirectionalButton className='w-64' type='submit'>
+        <DirectionalButton className='w-full sm:w-64' type='submit'>
           {loading ? 'Sending...' : 'Send'}
         </DirectionalButton>
       </form>

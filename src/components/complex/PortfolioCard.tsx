@@ -25,7 +25,7 @@ const PortfolioCard = ({ project }: Props) => {
     <>
       <div
         ref={ref}
-        className={`w-full sm:w-96 rounded-2xl p-7 bg-gradient-to-br from-[#1A1A1A] to-[#212121]
+        className={`w-full sm:w-96 md:w-[calc(50%-0.75rem)] lg:w-96 rounded-2xl p-7 bg-gradient-to-br from-[#1A1A1A] to-[#212121]
         shadow-[10px_10px_15px_#0A0A0A,-10px_-10px_15px_#2C2C2C]
         transition-all duration-700 ease-out flex flex-col
         ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}

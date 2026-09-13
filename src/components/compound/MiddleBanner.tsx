@@ -6,7 +6,7 @@ import DirectionalButton from './DirectionalButton'
 import BannerImage from './BannerImage'
 import useInView from '@/hooks/useInView'
 import { SanityHero } from '@/types/sanity'
-import { getHeroData, getPortfolioProjects } from '../../../queries'
+import { getHeroData } from '../../../queries'
 import { SiNextdotjs, SiTypescript, SiVercel } from 'react-icons/si'
 import { motion, useSpring, useTransform } from 'framer-motion'
 
@@ -32,7 +32,6 @@ const MiddleBanner = () => {
 
   useEffect(() => {
     getHeroData().then(setHeroData)
-    console.log(getPortfolioProjects())
   }, [])
 
   // Rotating titles effect
@@ -54,7 +53,7 @@ const MiddleBanner = () => {
   return (
     <div className='flex items-center justify-center'>
       <div className='flex-col w-full md:w-[650px]'>
-        <div className='text-7xl sm:text-8xl md:text-6xl lg:text-8xl xl:text-9xl 2xl:text-[9rem] font-bold tracking-wider text-white'>
+        <div className='text-6xl min-[360px]:text-7xl sm:text-8xl md:text-6xl lg:text-8xl xl:text-9xl 2xl:text-[length:clamp(6.5rem,15vh,9rem)] font-bold tracking-wider whitespace-nowrap text-white'>
           <div className='overflow-hidden h-fit'>
             <h1
               ref={ref1}
@@ -129,14 +128,14 @@ const MiddleBanner = () => {
               </span>
               <span className='text-xs sm:text-sm'>Years Experience</span>
             </div>
-            <span className='hidden sm:block w-1 h-1 rounded-full bg-white/40'></span>
+            <span className='hidden sm:block md:hidden xl:block w-1 h-1 rounded-full bg-white/40'></span>
             <div className='flex items-center gap-1 sm:gap-2'>
               <span className='text-lg sm:text-2xl font-bold text-custom-orange'>
                 <AnimatedStat value={50} inView={inView1} />+
               </span>
               <span className='text-xs sm:text-sm'>Clients</span>
             </div>
-            <span className='hidden sm:block w-1 h-1 rounded-full bg-white/40'></span>
+            <span className='hidden sm:block md:hidden xl:block w-1 h-1 rounded-full bg-white/40'></span>
             <div className='flex items-center gap-1 sm:gap-2'>
               <span className='text-lg sm:text-2xl font-bold text-custom-orange'>
                 <AnimatedStat value={20} inView={inView1} />+
