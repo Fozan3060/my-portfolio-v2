@@ -7,9 +7,19 @@ import BannerImage from './BannerImage'
 import useInView from '@/hooks/useInView'
 import { SanityHero } from '@/types/sanity'
 import { getHeroData } from '../../../queries'
-import { SiNextdotjs, SiTypescript, SiVercel } from 'react-icons/si'
+import { SiFastapi, SiNextdotjs, SiPostgresql, SiRailway, SiTypescript, SiVercel } from 'react-icons/si'
 import { LuArrowUpRight, LuSparkles } from 'react-icons/lu'
 import { openChat } from '@/lib/chatEvents'
+import ToolChip, { Tool } from '../ui/ToolChip'
+
+const coreStack: Tool[] = [
+  { name: 'Next.js', icon: SiNextdotjs },
+  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+  { name: 'FastAPI', icon: SiFastapi, color: '#009688' },
+  { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
+  { name: 'Vercel', icon: SiVercel },
+  { name: 'Railway', icon: SiRailway }
+]
 
 const roles = ['AI/LLM Developer', 'AI Full Stack Engineer', 'Problem Solver']
 
@@ -131,39 +141,19 @@ const MiddleBanner = () => {
           </button>
         </div>
 
-        {/* Tech Stack with Icons */}
+        {/* Core stack */}
         <div
           className={`mt-6 transition-all duration-700 ease-out ${
             inView1 ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           }`}
           style={{ transitionDelay: '1000ms' }}
         >
-          <p className='text-text2 text-xs mb-3 tracking-wider uppercase'>Tech Stack</p>
-          <div className='flex flex-wrap items-center gap-2 sm:gap-4'>
-            {[
-              { name: 'Next.js', IconComponent: SiNextdotjs },
-              { name: 'TypeScript', IconComponent: SiTypescript, color: '#3178C6' },
-              { name: 'LLM/RAG', icon: '🧠' },
-              { name: 'Vercel', IconComponent: SiVercel },
-              { name: 'Docker', icon: '🐳' },
-              { name: 'Stripe', icon: '💳' },
-              { name: 'OAuth', icon: '🔐' },
-              { name: 'Playwright', icon: '🎭' }
-            ].map((tech) => (
-              <div
-                key={tech.name}
-                className='group flex items-center gap-2 px-3 py-2 rounded-lg bg-background2/60 border border-border/50 hover:border-custom-orange/50 hover:bg-background2 transition-all duration-300 cursor-default'
-                title={tech.name}
-              >
-                {tech.IconComponent ? (
-                  <tech.IconComponent className='w-5 h-5' style={{ color: tech.color || 'white' }} />
-                ) : (
-                  <span className='text-lg'>{tech.icon}</span>
-                )}
-                <span className='text-sm text-white/80 group-hover:text-white'>{tech.name}</span>
-              </div>
+          <p className='text-text2 text-xs mb-3 tracking-wider uppercase'>Core stack</p>
+          <ul className='flex flex-wrap items-center gap-2'>
+            {coreStack.map((tool) => (
+              <ToolChip key={tool.name} tool={tool} />
             ))}
-          </div>
+          </ul>
         </div>
       </div>
       <BannerImage />

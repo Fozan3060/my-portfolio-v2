@@ -58,19 +58,11 @@ import {
   SiVercel
 } from 'react-icons/si'
 import Logo from '../ui/Logo'
+import ToolChip, { Tool } from '../ui/ToolChip'
 import SectionHeading from '../ui/SectionHeading'
 import SectionWrapper from '../ui/SectionWrapper'
 import Wrapper from './Wrapper'
 import useInView from '@/hooks/useInView'
-
-type Tool = {
-  name: string
-  icon: IconType
-  // Brand colour shown on hover; dark brands fall back to white.
-  color?: string
-  // Part of the production stack.
-  core?: boolean
-}
 
 type Category = {
   title: string
@@ -189,29 +181,6 @@ const reveal = (inView: boolean, delayMs: number, extraClasses = '') => ({
   style: { transitionDelay: inView ? `${delayMs}ms` : '0ms' }
 })
 
-const ToolChip = ({ tool }: { tool: Tool }) => {
-  const { name, icon: Icon, color = '#ffffff', core } = tool
-  return (
-    <li
-      style={{ '--brand': color } as React.CSSProperties}
-      className={`group/chip inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm transition-colors duration-300 ${
-        core
-          ? 'border-custom-orange/25 bg-custom-orange/[0.06] text-white'
-          : 'border-white/5 bg-white/[0.03] text-text3 hover:border-white/15 hover:text-white'
-      }`}
-    >
-      <Icon aria-hidden size={16} className='shrink-0 text-white/60 transition-colors duration-300 group-hover/chip:text-[var(--brand)]' />
-      {name}
-      {core && (
-        <>
-          <span aria-hidden className='h-1.5 w-1.5 rounded-full bg-custom-orange' />
-          <span className='sr-only'>(production stack)</span>
-        </>
-      )}
-    </li>
-  )
-}
-
 const CategoryHeader = ({ icon: Icon, title, description }: Omit<Category, 'tools'>) => (
   <div className='flex items-start gap-4'>
     <span className='flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-custom-orange/10 text-custom-orange ring-1 ring-custom-orange/20'>
@@ -254,7 +223,7 @@ const Skills = () => {
             </p>
           </div>
 
-          <div ref={gridRef} className='mx-auto mt-14 grid max-w-7xl gap-4 md:grid-cols-2 xl:grid-cols-3'>
+          <div ref={gridRef} className='mx-auto mt-14 grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3'>
             <div {...reveal(gridInView, 0, 'md:col-span-2')}>
               <div className='relative h-full overflow-hidden rounded-3xl border border-white/5 bg-background p-5 sm:p-8'>
                 <div

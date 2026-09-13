@@ -13,14 +13,22 @@ type FilterCategory = 'all' | 'fullstack' | 'ai'
 
 const TAB_WIDTH_DESKTOP = 130
 const TAB_WIDTH_MOBILE = 105
+// Three 105px tabs overflow a 320px phone, so the smallest screens get narrower tabs.
+const TAB_WIDTH_NARROW = 88
 
 const Portfolio = () => {
   const [projects, setProjects] = useState<SanityProject[]>([])
   const [activeFilter, setActiveFilter] = useState<FilterCategory>('all')
   const [isMobile, setIsMobile] = useState(false)
+  const [isNarrow, setIsNarrow] = useState(false)
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 400)
+    const checkMobile = () => {
+      // clientWidth, not innerWidth: on phones innerWidth grows when anything overflows.
+      const width = document.documentElement.clientWidth
+      setIsMobile(width < 400)
+      setIsNarrow(width < 360)
+    }
     checkMobile()
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
@@ -46,11 +54,11 @@ const Portfolio = () => {
   const filters: { key: FilterCategory; label: string }[] = [
     { key: 'all', label: 'All' },
     { key: 'fullstack', label: 'Full Stack' },
-    { key: 'ai', label: 'AI/LLM Full Stack' },
+    { key: 'ai', label: isNarrow ? 'AI/LLM' : 'AI/LLM Full Stack' },
   ]
 
   const activeIndex = filters.findIndex(f => f.key === activeFilter)
-  const tabWidth = isMobile ? TAB_WIDTH_MOBILE : TAB_WIDTH_DESKTOP
+  const tabWidth = isNarrow ? TAB_WIDTH_NARROW : isMobile ? TAB_WIDTH_MOBILE : TAB_WIDTH_DESKTOP
 
   return (
     <Wrapper sectionId='portfolio'>

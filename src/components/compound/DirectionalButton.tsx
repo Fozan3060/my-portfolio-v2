@@ -8,6 +8,7 @@ type DirectionalButtonType = {
   type?: 'button' | 'submit' | 'reset'
   onClick?: () => void
   className?: string
+  disabled?: boolean
 }
 
 const DirectionalButton: React.FC<DirectionalButtonType> = ({
@@ -15,7 +16,8 @@ const DirectionalButton: React.FC<DirectionalButtonType> = ({
   children,
   type = 'button',
   onClick,
-  className
+  className,
+  disabled
 }) => {
   const wrapperRef = useRef<HTMLButtonElement>(null)
   const [transform, setTransform] = useState('')
@@ -51,7 +53,8 @@ const DirectionalButton: React.FC<DirectionalButtonType> = ({
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
       type={type}
-      className={`transition-transform duration-500 relative z-0 directional-overlay bg-custom-orange cursor-pointer text-lg px-7 sm:px-14 rounded-xl flex items-center justify-center ${className}`}
+      disabled={disabled}
+      className={`transition-transform duration-500 relative z-0 directional-overlay bg-custom-orange cursor-pointer text-lg px-7 sm:px-14 rounded-xl flex items-center justify-center disabled:cursor-not-allowed disabled:opacity-60 ${className}`}
       style={{ transform }}
     >
       <span className='relative text-nowrap font-semibold text-background hover:text-background h-14 z-10 bg-transparent flex items-center justify-center'>

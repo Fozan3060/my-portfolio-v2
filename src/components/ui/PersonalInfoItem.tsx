@@ -4,7 +4,7 @@ import React from 'react';
 import useInView from '@/hooks/useInView';
 
 // Lets a long email wrap after the "@" on narrow phones instead of mid-word.
-export const withEmailBreak = (text: string) => {
+const withEmailBreak = (text: string) => {
   const at = text.indexOf('@');
   if (at === -1) return text;
   return (
