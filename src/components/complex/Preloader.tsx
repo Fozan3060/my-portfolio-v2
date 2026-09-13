@@ -116,7 +116,7 @@ const Preloader = () => {
             </span>
           ))}
         </p>
-        <p className='preloader-role mt-4 text-[11px] uppercase text-custom-orange sm:text-xs'>AI Full Stack Engineer</p>
+        <p className='preloader-role mt-4 text-[11px] uppercase text-custom-orange sm:text-xs'>Full-Stack AI Engineer</p>
       </div>
 
       <div aria-hidden className='absolute inset-x-0 bottom-0 mx-5 pb-8 sm:mx-14 sm:pb-10 lg:mx-20'>

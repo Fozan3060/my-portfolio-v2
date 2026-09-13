@@ -44,7 +44,7 @@ const currently = [
   {
     icon: LuBriefcase,
     label: 'Role',
-    title: 'Lead/Platform Developer',
+    title: 'Lead Platform Developer',
     detail: 'Ralico Ltd, a UK solar company'
   },
   {

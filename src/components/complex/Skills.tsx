@@ -14,12 +14,12 @@ import {
   LuDatabase,
   LuDrama,
   LuFlaskConical,
-  LuGauge,
   LuLandmark,
   LuPanelsTopLeft,
   LuRadioTower,
   LuSearch,
   LuServer,
+  LuShoppingCart,
   LuSmartphone,
   LuTreePine,
   LuWorkflow
@@ -28,13 +28,10 @@ import {
   SiAmazondynamodb,
   SiAmazonwebservices,
   SiClaude,
-  SiCypress,
   SiDeepgram,
   SiDocker,
   SiExpo,
-  SiExpress,
   SiFastapi,
-  SiFramer,
   SiGithubactions,
   SiGooglegemini,
   SiGraphql,
@@ -47,13 +44,12 @@ import {
   SiOpenai,
   SiPostgresql,
   SiPython,
-  SiQuickbooks,
   SiRailway,
   SiReact,
-  SiSass,
   SiShadcnui,
   SiStripe,
   SiTailwindcss,
+  SiThreedotjs,
   SiTypescript,
   SiVercel
 } from 'react-icons/si'
@@ -77,8 +73,7 @@ const aiTools: Tool[] = [
   { name: 'Gemini', icon: SiGooglegemini, color: '#8E75B2' },
   { name: 'RAG systems', icon: LuSearch },
   { name: 'Multi-agent systems', icon: LuWorkflow },
-  { name: 'Evals', icon: LuGauge },
-  { name: 'QLoRA fine-tuning', icon: LuCpu },
+  { name: 'QLoRA fine-tuning (Unsloth)', icon: LuCpu },
   { name: 'Ollama', icon: SiOllama }
 ]
 
@@ -100,8 +95,7 @@ const categories: Category[] = [
       { name: 'React', icon: SiReact, color: '#61DAFB' },
       { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#38BDF8' },
       { name: 'shadcn/ui', icon: SiShadcnui },
-      { name: 'Framer Motion', icon: SiFramer },
-      { name: 'Sass', icon: SiSass, color: '#CC6699' }
+      { name: 'Three.js', icon: SiThreedotjs }
     ]
   },
   {
@@ -113,8 +107,8 @@ const categories: Category[] = [
       { name: 'Python', icon: SiPython, color: '#3776AB' },
       { name: 'NestJS', icon: SiNestjs, color: '#E0234E' },
       { name: 'Node.js', icon: SiNodedotjs, color: '#5FA04E' },
-      { name: 'Express', icon: SiExpress },
       { name: 'GraphQL', icon: SiGraphql, color: '#E10098' },
+      { name: 'Inngest', icon: LuWorkflow },
       { name: 'REST APIs', icon: LuBraces }
     ]
   },
@@ -152,22 +146,22 @@ const categories: Category[] = [
   },
   {
     title: 'Payments',
-    description: 'Payments, bank linking and accounting integrations.',
+    description: 'Marketplace checkout and bank account onboarding.',
     icon: LuCreditCard,
     tools: [
-      { name: 'Stripe', icon: SiStripe, color: '#635BFF' },
+      { name: 'Fortis', icon: LuCreditCard },
+      { name: 'Commerce.js', icon: LuShoppingCart },
+      { name: 'Moov.io', icon: LuArrowLeftRight },
       { name: 'Plaid', icon: LuLandmark },
-      { name: 'Moov', icon: LuArrowLeftRight },
-      { name: 'QuickBooks', icon: SiQuickbooks, color: '#2CA01C' }
+      { name: 'Stripe', icon: SiStripe, color: '#635BFF' }
     ]
   },
   {
     title: 'Testing',
-    description: 'End-to-end, integration and unit tests wired into CI.',
+    description: 'End-to-end and unit tests wired into CI.',
     icon: LuFlaskConical,
     tools: [
       { name: 'Playwright', icon: LuDrama, color: '#2EAD33' },
-      { name: 'Cypress', icon: SiCypress, color: '#69D3A7' },
       { name: 'Jest', icon: SiJest, color: '#C21325' }
     ]
   }

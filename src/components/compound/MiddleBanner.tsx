@@ -21,7 +21,7 @@ const coreStack: Tool[] = [
   { name: 'Railway', icon: SiRailway }
 ]
 
-const roles = ['AI/LLM Developer', 'AI Full Stack Engineer', 'Problem Solver']
+const roles = ['Full-Stack AI Engineer', 'AI/LLM Developer', 'Problem Solver']
 
 const MiddleBanner = () => {
   const [herodata, setHeroData] = useState<SanityHero>()

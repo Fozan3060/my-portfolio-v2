@@ -25,57 +25,56 @@ type Role = {
 
 const experience: Role[] = [
   {
-    title: 'Lead/Platform Developer',
+    title: 'Lead Platform Developer',
     company: 'Ralico Ltd',
-    location: 'UK',
-    workType: 'Hybrid',
+    location: 'London, UK',
+    workType: 'Remote',
+    date: 'Jun 2026 - Present',
     current: true,
     points: [
-      'Sole owner of the codebase and infrastructure for a UK-registered solar company.',
-      'Building First Light, an AI solar advisor with a real-time voice pipeline.',
-      'Next.js and FastAPI on Vercel and Railway, backed by Neon Postgres.'
+      'Own the entire stack as the only engineer: Next.js and TypeScript on Vercel, a FastAPI modular monolith on Railway and PostgreSQL on Neon.',
+      'Architected and shipped a real-time voice AI solar advisor on a LiveKit, Deepgram Nova-3, Claude and Cartesia pipeline, with streaming transcription, turn detection and barge-in handling.',
+      'Designed the knowledge governance layer that keeps advisor answers to approved sources and presents cost and finance guidance as caveated ranges.'
     ],
-    tags: ['Next.js', 'TypeScript', 'FastAPI', 'PostgreSQL', 'LiveKit', 'Claude']
+    tags: ['Next.js', 'TypeScript', 'FastAPI', 'PostgreSQL', 'LiveKit', 'Deepgram', 'Claude', 'Cartesia']
   },
   {
-    title: 'Freelance Full Stack Developer',
-    company: 'Self-employed',
-    date: 'Since Jun 2024',
-    highlight: '99.9% uptime',
+    title: 'Full-Stack Developer',
+    company: 'Freelance',
+    workType: 'Remote',
+    date: 'Jun 2024 - Present',
+    highlight: 'Failed deployments halved',
     points: [
-      'Delivered the Merchantra e-commerce app and a Twitter scraper backend.',
-      'Built with FastAPI, Selenium, MongoDB and Docker.',
-      'Kept AWS EC2 deployments at 99.9% uptime.'
+      'Halved failed deployments on the DayOf event platform by introducing Playwright end-to-end coverage and GitHub Actions CI/CD.',
+      'Shipped payment and banking infrastructure across two products: Fortis with Commerce.js for marketplace checkout, and Moov.io with Plaid for bank account onboarding and linking.',
+      'Delivered Merchantra and a Twitter scraping backend in FastAPI, Selenium, MongoDB and Docker, with cron-driven pipelines and Swagger-documented REST APIs on AWS EC2.'
     ],
-    tags: ['FastAPI', 'Selenium', 'MongoDB', 'Docker', 'AWS EC2']
+    tags: ['Playwright', 'GitHub Actions', 'Moov.io', 'Plaid', 'FastAPI', 'Docker', 'AWS EC2']
   },
   {
-    title: 'Full Stack Developer',
+    title: 'Full-Stack Developer',
     company: 'OnlyGamers Inc',
     location: 'Norway',
     workType: 'Remote',
     date: 'Jan 2024 - Apr 2024',
-    highlight: '+45% engagement',
+    highlight: '~40% less query load',
     points: [
-      'Built a gaming community platform with Google OAuth, email and social sign-in.',
-      'Shipped subscription-based creator monetization, lifting user engagement by 45%.',
-      'Added profile customization with avatar and banner cropping, with media on AWS S3.',
-      'Optimized the backend with DynamoDB and GraphQL APIs.'
+      'Built a creator platform with authentication, profiles, AWS S3 media storage and subscription monetization.',
+      'Cut query load by roughly 40% by restructuring the backend around DynamoDB and GraphQL.'
     ],
-    tags: ['OAuth', 'AWS S3', 'DynamoDB', 'GraphQL']
+    tags: ['AWS S3', 'DynamoDB', 'GraphQL']
   },
   {
-    title: 'React Front-end Developer',
+    title: 'React Frontend Developer',
     company: 'Creative Squad Inc',
-    location: 'Canada',
+    location: 'Ontario, Canada',
     workType: 'Remote',
     date: 'Jan 2023 - May 2023',
-    highlight: '+30% usability',
     points: [
-      'Converted Figma designs into responsive, interactive React interfaces.',
-      'Improved UI/UX with Bootstrap 5 and SwiperJS, boosting usability by 30%.'
+      'Converted Figma designs into responsive React applications.',
+      'Built reusable UI components with Bootstrap 5 and Swiper, and resolved critical rendering and state bugs.'
     ],
-    tags: ['React', 'Figma', 'Bootstrap 5', 'SwiperJS']
+    tags: ['React', 'Figma', 'Bootstrap 5', 'Swiper']
   }
 ]
 
@@ -83,9 +82,9 @@ const education = {
   degree: 'BS Computer Science',
   school: 'FAST-NUCES',
   location: 'Karachi',
-  date: 'Jul 2023 - 2027',
+  date: 'Jul 2023 - Expected 2027',
   points: [
-    'Final year project: RefactorAgent, an agent for verified, repo-scale migration of React class components to hooks.',
+    'Final year project (2026-2027): RefactorAgent, an agentic system that migrates React class components to hooks across a whole repository and verifies behavioural equivalence. Team lead of three.',
     'Working on a research paper on security in multi-agent LLM systems.',
     'Core coursework in data structures, algorithms and full-stack development.'
   ]
@@ -241,7 +240,7 @@ const Resume: React.FC = () => {
               />
               <ol className='space-y-4'>
                 {experience.map((role, idx) => (
-                  <li key={role.title}>
+                  <li key={`${role.title}-${role.company}`}>
                     <Reveal delay={idx === 0 ? 0 : 80} className='grid grid-cols-[1.5rem_1fr] gap-3 sm:grid-cols-[2.5rem_1fr] sm:gap-5'>
                       <span className='relative z-10 mt-6 flex h-6 w-6 items-center justify-center rounded-full border border-white/10 bg-background sm:h-10 sm:w-10'>
                         <span

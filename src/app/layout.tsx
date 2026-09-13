@@ -9,9 +9,9 @@ const display = Bricolage_Grotesque({ subsets: ['latin'], axes: ['opsz'], variab
 const body = Instrument_Sans({ subsets: ['latin'], variable: '--font-instrument' })
 
 export const metadata: Metadata = {
-  title: 'Fozan Javaid | AI Full Stack Engineer',
+  title: 'Fozan Javaid | Full-Stack AI Engineer',
   description:
-    'Portfolio of Fozan Javaid, a full-stack TypeScript engineer building AI-powered web applications with Next.js, FastAPI and PostgreSQL.'
+    'Portfolio of Fozan Javaid, a full-stack AI engineer who builds and ships production AI systems with TypeScript, Next.js, FastAPI and PostgreSQL.'
 }
 
 export default function RootLayout ({
