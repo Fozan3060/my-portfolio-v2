@@ -1,9 +1,9 @@
 import React from 'react'
-import { FaArrowUpRightFromSquare } from 'react-icons/fa6'
-import DirectionalButton from './DirectionalButton'
-import Modal from './Modal'
 import Image from 'next/image'
+import { LuArrowUpRight } from 'react-icons/lu'
+import Modal from './Modal'
 import { urlFor } from '@/sanity/lib/image'
+import { hostOf } from '@/lib/url'
 
 type PortfolioModalType = {
   isOpen: boolean
@@ -27,47 +27,48 @@ const PortfolioModal: React.FC<PortfolioModalType> = ({
   img
 }) => {
   return (
-    <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-      <div className='flex sm:w-[26rem] lg:w-full m-auto semi_md:flex-row flex-col gap-16 overflow-hidden'>
-        <Image
-          src={urlFor(img).url()}
-          width={800}
-          height={800}
-          priority
-          className='lg:w-[28rem]  xl:w-[30rem] h-auto rounded-lg'
-          alt='ProjectImage'
-        />
-        <div className='flex flex-col justify-between'>
-          <div>
-            <span className='text-custom-orange text-xs font-bold uppercase tracking-wide'>
-              {category}
-            </span>
-            <h2 className='text-2xl font-semibold text-text3 mt-1'>
-              {name}
-            </h2>
-            <p className='text-text2 mt-4 mb-8 lg:text-lg'>{description}</p>
-            <div className='flex mb-10 semi_md:mb-6 semi_md:text-sm lg:text-base items-center flex-wrap gap-3'>
-              {skills.map(skill => (
-                <span
-                  key={skill}
-                  className='bg-background  py-2 px-6 cursor-pointer hover:bg-custom-orange transition-colors duration-300 hover:text-background font-medium text-center text-nowrap text-white rounded-3xl'
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
+    <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} label={name}>
+      <div className='grid gap-8 lg:grid-cols-2 lg:gap-10'>
+        <div className='overflow-hidden rounded-2xl border border-white/5 bg-background'>
+          <Image
+            src={urlFor(img).width(1400).url()}
+            width={1400}
+            height={900}
+            sizes='(min-width: 1024px) 40vw, 90vw'
+            loading='eager'
+            className='h-auto max-h-[60vh] w-full object-cover object-top'
+            alt={name}
+          />
+        </div>
 
-          <div className='overflow-hidden py-2 -my-2 px-3 -mx-3'>
-            <a href={link} className='w-32 block'>
-              <DirectionalButton>
-                <span className='flex items-center justify-center gap-3 '>
-                  <span>View Project</span>
-                  <FaArrowUpRightFromSquare size={20} />
-                </span>
-              </DirectionalButton>
-            </a>
-          </div>
+        <div className='flex flex-col'>
+          <p className='text-xs font-medium text-custom-orange'>{category}</p>
+          <h2 className='mt-1.5 text-2xl font-semibold text-white sm:text-3xl'>{name}</h2>
+          <p className='mt-4 leading-relaxed text-text2'>{description.trim()}</p>
+
+          <p className='mt-8 text-sm font-medium text-text3'>Built with</p>
+          <ul className='mt-3 flex flex-wrap gap-2'>
+            {skills.map(skill => (
+              <li key={skill} className='rounded-md border border-white/5 bg-white/[0.03] px-2.5 py-1 text-sm text-text3'>
+                {skill}
+              </li>
+            ))}
+          </ul>
+
+          {link && (
+            <div className='mt-8 flex flex-wrap items-center gap-4 lg:mt-auto lg:pt-8'>
+              <a
+                href={link}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='inline-flex items-center gap-2 rounded-xl bg-custom-orange px-5 py-3 font-semibold text-background transition-opacity duration-300 hover:opacity-90'
+              >
+                Visit live site
+                <LuArrowUpRight aria-hidden size={18} />
+              </a>
+              <span className='text-sm text-text2'>{hostOf(link)}</span>
+            </div>
+          )}
         </div>
       </div>
     </Modal>

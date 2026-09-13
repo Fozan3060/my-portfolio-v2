@@ -1,64 +1,51 @@
 'use client'
 
 import React, { useEffect, useState, useMemo } from 'react'
+import { motion } from 'framer-motion'
 import Logo from '../ui/Logo'
 import SectionHeading from '../ui/SectionHeading'
 import SectionWrapper from '../ui/SectionWrapper'
 import Wrapper from './Wrapper'
 import PortfolioCard from './PortfolioCard'
+import useInView from '@/hooks/useInView'
 import { getPortfolioProjects } from '../../../queries'
 import { SanityProject } from '@/types/sanity'
 
-type FilterCategory = 'all' | 'fullstack' | 'ai'
+type FilterCategory = 'all' | 'ai' | 'fullstack'
 
-const TAB_WIDTH_DESKTOP = 130
-const TAB_WIDTH_MOBILE = 105
-// Three 105px tabs overflow a 320px phone, so the smallest screens get narrower tabs.
-const TAB_WIDTH_NARROW = 88
+// Sanity has no ordering field, so lead with the strongest work; anything new goes last.
+const FEATURED_ORDER = ['Persona AI', 'Career Coach AI', 'DayOf', 'ShoutOut', 'Merchantra', 'Creative Squad']
+
+const isAiProject = (project: SanityProject) => project.category.toLowerCase().includes('ai')
+
+const rank = (project: SanityProject) => {
+  const index = FEATURED_ORDER.findIndex((name) => name.toLowerCase() === project.projectName.toLowerCase())
+  return index === -1 ? FEATURED_ORDER.length : index
+}
 
 const Portfolio = () => {
   const [projects, setProjects] = useState<SanityProject[]>([])
   const [activeFilter, setActiveFilter] = useState<FilterCategory>('all')
-  const [isMobile, setIsMobile] = useState(false)
-  const [isNarrow, setIsNarrow] = useState(false)
+  const { ref, isInView } = useInView<HTMLDivElement>(0.2, true)
 
   useEffect(() => {
-    const checkMobile = () => {
-      // clientWidth, not innerWidth: on phones innerWidth grows when anything overflows.
-      const width = document.documentElement.clientWidth
-      setIsMobile(width < 400)
-      setIsNarrow(width < 360)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
+    getPortfolioProjects().then((data: SanityProject[]) => setProjects([...data].sort((a, b) => rank(a) - rank(b))))
   }, [])
 
-  useEffect(() => {
-    getPortfolioProjects().then(setProjects)
-  }, [])
+  const filters = useMemo(
+    () => [
+      { key: 'all' as const, label: 'All', count: projects.length },
+      { key: 'ai' as const, label: 'AI products', count: projects.filter(isAiProject).length },
+      { key: 'fullstack' as const, label: 'Full stack', count: projects.filter((p) => !isAiProject(p)).length }
+    ],
+    [projects]
+  )
 
   const filteredProjects = useMemo(() => {
-    if (activeFilter === 'all') return projects
-    if (activeFilter === 'ai') {
-      return projects.filter(p =>
-        p.category.toLowerCase().includes('ai')
-      )
-    }
-    // fullstack - exclude AI projects
-    return projects.filter(p =>
-      !p.category.toLowerCase().includes('ai')
-    )
+    if (activeFilter === 'ai') return projects.filter(isAiProject)
+    if (activeFilter === 'fullstack') return projects.filter((p) => !isAiProject(p))
+    return projects
   }, [projects, activeFilter])
-
-  const filters: { key: FilterCategory; label: string }[] = [
-    { key: 'all', label: 'All' },
-    { key: 'fullstack', label: 'Full Stack' },
-    { key: 'ai', label: isNarrow ? 'AI/LLM' : 'AI/LLM Full Stack' },
-  ]
-
-  const activeIndex = filters.findIndex(f => f.key === activeFilter)
-  const tabWidth = isNarrow ? TAB_WIDTH_NARROW : isMobile ? TAB_WIDTH_MOBILE : TAB_WIDTH_DESKTOP
 
   return (
     <Wrapper sectionId='portfolio'>
@@ -66,41 +53,58 @@ const Portfolio = () => {
         <Logo src='/assets/Logo2.png' classname='h-16 w-20 m-auto' />
         <SectionHeading heading='Portfolio' />
 
-        {/* Filter Tabs */}
-        <div className='flex justify-center mb-10'>
-          <div className='relative inline-flex bg-background2 rounded-full p-1 sm:p-1.5 border border-border'>
-            {/* Sliding indicator */}
-            <div
-              className='absolute top-1 bottom-1 sm:top-1.5 sm:bottom-1.5 bg-custom-orange rounded-full transition-all duration-300 ease-out'
-              style={{
-                left: `${activeIndex * tabWidth + (isMobile ? 4 : 6)}px`,
-                width: `${tabWidth}px`
-              }}
-            />
-            {filters.map(filter => (
-              <button
-                key={filter.key}
-                onClick={() => setActiveFilter(filter.key)}
-                className={`relative z-10 py-2 sm:py-2.5 rounded-full font-semibold text-center whitespace-nowrap transition-colors duration-300 cursor-pointer
-                  ${activeFilter === filter.key
-                    ? 'text-background'
-                    : 'text-text2 hover:text-text3'
-                  }`}
-                style={{
-                  width: `${tabWidth}px`,
-                  fontSize: isMobile ? '11px' : '14px'
-                }}
-              >
-                {filter.label}
-              </button>
+        <div ref={ref} className='mx-auto max-w-7xl'>
+          <div
+            className={`mx-auto max-w-3xl text-center transition-all duration-700 ease-out ${
+              isInView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}
+          >
+            <h2 className='text-balance text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl xl:text-5xl'>
+              Selected <span className='text-custom-orange'>work</span>
+            </h2>
+            <p className='mt-5 text-base leading-relaxed text-text2 sm:text-lg'>
+              Live products I&apos;ve shipped, from AI apps to payments and ticketing platforms.
+            </p>
+          </div>
+
+          <div className='mt-10 flex justify-center'>
+            <div role='tablist' aria-label='Filter projects' className='inline-flex rounded-full border border-white/10 bg-background2 p-1'>
+              {filters.map((filter) => {
+                const active = activeFilter === filter.key
+                return (
+                  <button
+                    key={filter.key}
+                    role='tab'
+                    aria-selected={active}
+                    onClick={() => setActiveFilter(filter.key)}
+                    className={`relative cursor-pointer whitespace-nowrap rounded-full px-3 py-2 text-xs font-semibold transition-colors duration-300 sm:px-5 sm:text-sm ${
+                      active ? 'text-background' : 'text-text2 hover:text-white'
+                    }`}
+                  >
+                    {active && (
+                      <motion.span
+                        layoutId='portfolio-filter'
+                        className='absolute inset-0 rounded-full bg-custom-orange'
+                        transition={{ type: 'spring', stiffness: 400, damping: 34 }}
+                      />
+                    )}
+                    <span className='relative'>
+                      {filter.label}
+                      {projects.length > 0 && (
+                        <span className={`ml-1.5 ${active ? 'text-background/70' : 'text-text2/70'}`}>{filter.count}</span>
+                      )}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          <div className='mt-10 grid grid-cols-1 gap-5 md:grid-cols-2'>
+            {filteredProjects.map((project) => (
+              <PortfolioCard key={project._id} project={project} />
             ))}
           </div>
-        </div>
-
-        <div className='flex flex-wrap justify-center gap-6'>
-          {filteredProjects.map(project => (
-            <PortfolioCard key={project._id} project={project} />
-          ))}
         </div>
       </SectionWrapper>
     </Wrapper>

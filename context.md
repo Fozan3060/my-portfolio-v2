@@ -30,7 +30,6 @@ A modern, feature-rich portfolio website for Fozan Javaid built with Next.js 15,
 | React Icons | 5.5.0 | Icon components |
 | React Modal | 3.16.3 | Modal component library |
 | Swiper | 11.2.8 | Touch slider/carousel |
-| React Parallax Tilt | 1.7.297 | Parallax effect library |
 | Styled Components | 6.1.18 | CSS-in-JS styling |
 | React Intersection Observer | 9.16.0 | Intersection observer hook |
 
@@ -69,7 +68,6 @@ my-portfolio-v2/
 │   │   │   ├── SocialLinks.tsx       # Social media links
 │   │   │
 │   │   ├── compound/                 # Composite/reusable components
-│   │   │   ├── ServiceCard.tsx       # Service offering card
 │   │   │   ├── ReviewsSlider.tsx     # Swiper-based reviews carousel
 │   │   │   ├── ContactForm.tsx       # Contact form (validation, EmailJS, inline status)
 │   │   │   ├── PortfolioModal.tsx    # Modal for project details

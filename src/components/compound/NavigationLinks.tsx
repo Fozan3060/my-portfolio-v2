@@ -3,13 +3,15 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-const links = [
+// In page order, so the active highlight moves steadily down the list while scrolling.
+export const links = [
   { label: 'Home', href: '#home' },
-  { label: 'About Me', href: '#about' },
-  { label: 'Portfolio', href: '#portfolio' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
-  { label: 'Review', href: '#review' }
+  { label: 'Portfolio', href: '#portfolio' },
+  { label: 'Resume', href: '#Resume' },
+  { label: 'Skills', href: '#Skills' },
+  { label: 'Contact', href: '#contact' }
 ]
 
 interface NavigationLinksTypes {
@@ -86,7 +88,7 @@ const NavigationLinks: React.FC<NavigationLinksTypes> = ({
       if (targetEl) {
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' })
         setActiveSection(targetId)
-        onNavigate?.() // 👈 close sidebar if provided
+        onNavigate?.()
       }
     }
   }
@@ -99,10 +101,11 @@ const NavigationLinks: React.FC<NavigationLinksTypes> = ({
           href={link.href}
           scroll={false}
           onClick={e => handleLinkClick(e, link.href)}
-          className={`text-lg font-medium duration-300 transition-colors ${LinksClassName} ${
+          aria-current={activeSection === link.href.slice(1) ? 'true' : undefined}
+          className={`font-medium duration-300 transition-colors ${LinksClassName ?? 'text-[15px]'} ${
             activeSection === link.href.slice(1)
               ? 'text-custom-orange'
-              : 'text-white'
+              : 'text-text3 hover:text-white'
           }`}
         >
           {link.label}
