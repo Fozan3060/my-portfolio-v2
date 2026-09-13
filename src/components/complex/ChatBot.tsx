@@ -5,10 +5,17 @@ import { AnimatePresence } from 'framer-motion'
 import ChatToggleButton from '../compound/ChatToggleButton'
 import ChatWindow from '../compound/ChatWindow'
 import { useChat } from '@/hooks/useChat'
+import { OPEN_CHAT_EVENT } from '@/lib/chatEvents'
 
 const ChatBot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const { messages, isTyping, isWarming, sendMessage, prewarm } = useChat()
+
+  useEffect(() => {
+    const open = () => setIsOpen(true)
+    window.addEventListener(OPEN_CHAT_EVENT, open)
+    return () => window.removeEventListener(OPEN_CHAT_EVENT, open)
+  }, [])
 
   // Prewarm the AI container when chat is opened
   useEffect(() => {
