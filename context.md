@@ -67,7 +67,6 @@ my-portfolio-v2/
 │   │   │   ├── SectionHeading.tsx    # Section title component
 │   │   │   ├── SectionWrapper.tsx    # Section padding wrapper
 │   │   │   ├── SocialLinks.tsx       # Social media links
-│   │   │   └── PersonalInfoItem.tsx  # Personal info display item
 │   │   │
 │   │   ├── compound/                 # Composite/reusable components
 │   │   │   ├── ServiceCard.tsx       # Service offering card
