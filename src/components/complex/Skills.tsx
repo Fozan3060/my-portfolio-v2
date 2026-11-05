@@ -5,7 +5,6 @@ import { IconType } from 'react-icons'
 import {
   LuArrowLeftRight,
   LuArrowRight,
-  LuAudioLines,
   LuBraces,
   LuBrainCircuit,
   LuCloud,
@@ -16,7 +15,6 @@ import {
   LuFlaskConical,
   LuLandmark,
   LuPanelsTopLeft,
-  LuRadioTower,
   LuSearch,
   LuServer,
   LuShoppingCart,
@@ -28,7 +26,6 @@ import {
   SiAmazondynamodb,
   SiAmazonwebservices,
   SiClaude,
-  SiDeepgram,
   SiDocker,
   SiExpo,
   SiFastapi,
@@ -77,11 +74,11 @@ const aiTools: Tool[] = [
   { name: 'Ollama', icon: SiOllama }
 ]
 
-const voicePipeline = [
-  { name: 'LiveKit', role: 'Real-time audio', icon: LuRadioTower },
-  { name: 'Deepgram', role: 'Speech to text', icon: SiDeepgram },
-  { name: 'Claude', role: 'LLM', icon: SiClaude },
-  { name: 'Cartesia', role: 'Text to speech', icon: LuAudioLines }
+const agentPipeline = [
+  { name: 'Claude Sonnet', role: 'Runs the conversation', icon: SiClaude },
+  { name: 'Claude Opus', role: 'Designs the system', icon: SiClaude },
+  { name: 'FastAPI', role: 'Computes every price', icon: SiFastapi },
+  { name: 'Neon Postgres', role: 'Versioned facts', icon: SiPostgresql }
 ]
 
 const categories: Category[] = [
@@ -230,7 +227,7 @@ const Skills = () => {
                   <CategoryHeader
                     icon={LuBrainCircuit}
                     title='AI & LLM Engineering'
-                    description='LLM features, retrieval, agents and real-time voice, built into real products.'
+                    description='LLM features, retrieval and agentic pipelines, built into real products.'
                   />
                   <ul className='mt-6 flex flex-wrap gap-2'>
                     {aiTools.map((tool) => (
@@ -240,10 +237,10 @@ const Skills = () => {
 
                   <div className='mt-8 rounded-2xl border border-white/5 bg-white/[0.02] p-3 sm:p-5'>
                     <p className='text-[11px] font-semibold uppercase tracking-[0.2em] text-text2'>
-                      Real-time voice pipeline behind First Light at Ralico
+                      Agentic pipeline behind MySolarGuy at Ralico
                     </p>
                     <ol className='mt-4 grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-4 xl:flex xl:items-stretch xl:gap-2'>
-                      {voicePipeline.map(({ name, role, icon: Icon }, idx) => (
+                      {agentPipeline.map(({ name, role, icon: Icon }, idx) => (
                         <React.Fragment key={name}>
                           {idx > 0 && (
                             <LuArrowRight aria-hidden size={16} className='hidden shrink-0 self-center text-custom-orange/60 xl:block' />
