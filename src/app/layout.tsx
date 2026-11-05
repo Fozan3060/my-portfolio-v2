@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     'PostgreSQL',
     'RAG',
     'Multi-agent systems',
-    'Voice AI',
+    'AI agents',
     'Karachi'
   ],
   alternates: { canonical: '/' },
