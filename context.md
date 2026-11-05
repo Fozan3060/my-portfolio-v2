@@ -276,7 +276,7 @@ const { ref, isInView } = useInView({ threshold: 0.3, once: true });
 ## Static Data
 
 ### Skills Data
-Defined inline in `src/components/complex/Skills.tsx`: a featured AI & LLM card (tools plus the real-time voice pipeline) and categories (Frontend, Backend, Databases, Cloud & DevOps, Mobile, Payments, Testing). Each tool has a react-icons icon, an optional brand colour and a `core` flag for the production stack.
+Defined inline in `src/components/complex/Skills.tsx`: a featured AI & LLM card (tools plus the agentic pipeline behind MySolarGuy) and categories (Frontend, Backend, Databases, Cloud & DevOps, Mobile, Payments, Testing). Each tool has a react-icons icon, an optional brand colour and a `core` flag for the production stack.
 
 ---
 

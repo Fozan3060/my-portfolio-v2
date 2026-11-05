@@ -12,7 +12,7 @@ export const SITE_URL = (
 export const SITE_NAME = 'Fozan Javaid'
 export const SITE_TITLE = 'Fozan Javaid | Full-Stack AI Engineer'
 export const SITE_DESCRIPTION =
-  'Full-stack AI engineer building production AI systems with TypeScript, Next.js, FastAPI and PostgreSQL: RAG, multi-agent apps, real-time voice and payments.'
+  'Full-stack AI engineer building production AI systems with TypeScript, Next.js, FastAPI and PostgreSQL: RAG, AI agents, multi-agent apps and payments.'
 
 // Structured data so search engines understand who the site is about.
 export const personJsonLd = {
@@ -26,6 +26,6 @@ export const personJsonLd = {
   worksFor: { '@type': 'Organization', name: 'Ralico Ltd' },
   alumniOf: { '@type': 'CollegeOrUniversity', name: 'FAST-NUCES' },
   address: { '@type': 'PostalAddress', addressLocality: 'Karachi', addressCountry: 'PK' },
-  knowsAbout: ['TypeScript', 'Next.js', 'FastAPI', 'PostgreSQL', 'Retrieval-augmented generation', 'Multi-agent systems', 'Voice AI'],
+  knowsAbout: ['TypeScript', 'Next.js', 'FastAPI', 'PostgreSQL', 'Retrieval-augmented generation', 'Multi-agent systems', 'AI agents'],
   sameAs: [LINKEDIN_URL, GITHUB_URL]
 }

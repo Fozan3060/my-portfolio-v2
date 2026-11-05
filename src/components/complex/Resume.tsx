@@ -33,10 +33,10 @@ const experience: Role[] = [
     current: true,
     points: [
       'Own the entire stack as the only engineer: Next.js and TypeScript on Vercel, a FastAPI modular monolith on Railway and PostgreSQL on Neon.',
-      'Architected and shipped a real-time voice AI solar advisor on a LiveKit, Deepgram Nova-3, Claude and Cartesia pipeline, with streaming transcription, turn detection and barge-in handling.',
-      'Designed the knowledge governance layer that keeps advisor answers to approved sources and presents cost and finance guidance as caveated ranges.'
+      'Architected and shipped MySolarGuy (mysolarguys.co.uk), a live AI solar advisor: Claude Sonnet runs the conversation and Claude Opus designs the system, with prompt caching that cut AI cost per conversation by about half.',
+      'Built the guardrails: the AI never types a price, every figure is computed in code from a versioned facts store, and 3,926 automated tests cover the platform.'
     ],
-    tags: ['Next.js', 'TypeScript', 'FastAPI', 'PostgreSQL', 'LiveKit', 'Deepgram', 'Claude', 'Cartesia']
+    tags: ['Next.js', 'TypeScript', 'FastAPI', 'PostgreSQL', 'Claude', 'Prompt caching', 'AI agents']
   },
   {
     title: 'Full-Stack Developer',

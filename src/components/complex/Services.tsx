@@ -21,8 +21,8 @@ const offerings: Offering[] = [
   {
     icon: LuBrainCircuit,
     title: 'AI products',
-    description: 'LLM features, retrieval over vector search, multi-agent systems and real-time voice, built into real products.',
-    builtIn: ['First Light at Ralico', 'Persona AI', 'Career Coach AI']
+    description: 'LLM features, retrieval over vector search, agentic pipelines and multi-agent systems, built into real products.',
+    builtIn: ['MySolarGuy at Ralico', 'Persona AI', 'Career Coach AI']
   },
   {
     icon: LuLayers,
